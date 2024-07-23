@@ -27,9 +27,11 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 # Open used google sheets document
 SHEET = GSPREAD_CLIENT.open("stodo")
 
+# wh = SHEET.worksheet("test")
 
-# define our clear function
+
 def clear():
+    """Clear screen"""
     # for windows
     if name == "nt":
         _ = system("cls")
@@ -50,13 +52,17 @@ def check_user_name(user_name: str) -> bool:
     return False
 
 
+def worksheet_append_row(ws_name: str, row: list):
+    ws = SHEET.worksheet(ws_name)
+    ws.append_row(row)
+
+
 def add_user(user_name: str, user_password: str, user_role="user"):
     """
     Function add the new user to the users base
     """
-    wks = SHEET.worksheet("users")
     user = [user_name, user_password, user_role]
-    wks.append_row(user)
+    worksheet_append_row("users", user)
 
 
 def hash_password(password: str) -> str:
@@ -79,29 +85,36 @@ def check_user_password(user_name: str, user_password: str) -> bool:
 
 def create_user_tasks_page(name: str):
     """
-    Function create a worksheet for each user
+    Create a worksheet for each user
     """
-    user_wsp = SHEET.add_worksheet(title=name, rows=100, cols=5)
+    user_wsp = SHEET.add_worksheet(title=name, rows=1, cols=5)
     user_wsp.append_row(["task_description", "status", "category", "time_stamp"])
 
 
-def delete_user_tasks_page(name):
-    SHEET.del_worksheet(name)
+# def delete_user_tasks_page(name="1"):
+#     wks_lst = SHEET.worksheets()
+#     print(wks_lst)
+# SHEET.del_worksheet(name)
 
 
-def add_task(task):
-    # TODO document why this method is empty
-    pass
+def add_task(user_name: str, task: str):
+    user_task = [task, "active", "category", "time"]
+    worksheet_append_row(user_name, user_task)
 
 
-def delete_task(task_id: int):
-    # TODO document why this method is empty
-    pass
+def delete_task(user_name: str, task_id: int):
+    wh = SHEET.worksheet(user_name)
+    wh.delete_rows((task_id + 1))
 
 
-def show_tasks():
-    # TODO document why this method is empty
-    pass
+def show_tasks(user_name):
+    wh = SHEET.worksheet(user_name)
+    all_records = wh.get_all_records()
+    # print(all_records)
+    for count, el in enumerate(all_records, start=1):
+        print(
+            f"| {count} | {el['task_description']} | {el['status']} | {el['category']} | {el['time_stamp']} | {el['id']} |"
+        )
 
 
 def edit_task():
@@ -134,18 +147,21 @@ def main():
     Main function. It runs all other functions
     """
     clear()
-    print("Hello, dear friend. Let's meet?\n")
-    print("Enter Y if you are a 'New User',\n")
-    print("or N if you are already registered.\n")
-    is_register = input()
-    if is_register in "yY":
-        # TODO: Add implementation
-        pass
-    elif is_register in "nN":
-        # TODO: Add implementation
-        pass
-    else:
-        print("Please enter correct answer")
+    # print(wh)
+    # wks_id =
+    # SHEET.del_worksheet_by_id("")
+    # print("Hello, dear friend. Let's meet?\n")
+    # print("Enter Y if you are a 'New User',\n")
+    # print("or N if you are already registered.\n")
+    # is_register = input()
+    # if is_register in "yY":
+    #     # TODO: Add implementation
+    #     pass
+    # elif is_register in "nN":
+    #     # TODO: Add implementation
+    #     pass
+    # else:
+    #     print("Please enter correct answer")
 
     # while True:
     #     print("Please enter your name:")
@@ -176,8 +192,11 @@ def main():
             # print(pw)
             # add_user(user_name, pw)
             # print(check_user_password(user_name, pw))
-            create_user_tasks_page(user_name)
-            # delete_user_tasks_page("id:1271026672")
+            # create_user_tasks_page(user_name)
+            # add_task("test", "ththththth")
+            show_tasks("test")
+            # delete_task("test", 38)
+            # show_tasks("test")
             sleep(10)
         elif answer in "aA":
             print(f"{user_name} you can add the task")
