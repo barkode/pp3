@@ -2,11 +2,11 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
+
 # import only system from os
 # To hash password
 import hashlib
 from os import name, system
-from pprint import pprint
 
 # import sleep to show output for some time period
 from time import sleep
@@ -38,7 +38,10 @@ def clear():
         _ = system("clear")
 
 
-def check_user(user_name):
+def check_user_name(user_name: str) -> bool:
+    """
+    Function check if user name exist in base
+    """
     wks = SHEET.worksheet("users")
     users = wks.col_values(1)[1:]
     if user_name not in users:
@@ -47,30 +50,34 @@ def check_user(user_name):
     return False
 
 
-def add_user(user_name, user_password, user_role="user"):
+def add_user(user_name: str, user_password: str, user_role="user"):
+    """
+    Function add the new user to the users base
+    """
     wks = SHEET.worksheet("users")
     user = [user_name, user_password, user_role]
     wks.append_row(user)
 
 
-def hash_password(password="1111"):
+def hash_password(password: str) -> str:
+    """
+    Function hash user password and return hashed password
+    """
     # Hash the password
     pw = hashlib.sha256(password.encode("utf-8"))
     return pw.hexdigest()
 
 
-def check_password(user_name, user_password):
+def check_user_password(user_name: str, user_password: str) -> bool:
     wks = SHEET.worksheet("users")
-    lst = wks.get_all_records()
+    lst = wks.get_all_values()
     for el in lst:
-        user_name, user_password = el.values()
-        print(user_name, user_password)
-    #     if (uname == user_name) and (pw == user_password):
-    #         return True
-    # return False
+        if (el[0] == user_name) and (el[1] == user_password):
+            return True
+    return False
 
 
-def create_user_tasks_page(name):
+def create_user_tasks_page(name: str):
     SHEET.add_worksheet(title=name, rows=100, cols=5)
 
 
@@ -129,7 +136,7 @@ def main():
             pw = hash_password()
             print(pw)
             add_user(user_name, pw)
-            pprint(check_password(pw, user_name))
+            print(check_user_password(user_name, pw))
             # create_user_tasks_page(user_name)
             # delete_user_tasks_page("id:1271026672")
             sleep(10)
