@@ -42,8 +42,8 @@ def check_user(user_name):
     wks = SHEET.worksheet("users")
     users = wks.col_values(1)[1:]
     if user_name not in users:
-        return True
         print("Sorry need other name")
+        return True
     return False
 
 
