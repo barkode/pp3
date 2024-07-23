@@ -78,7 +78,11 @@ def check_user_password(user_name: str, user_password: str) -> bool:
 
 
 def create_user_tasks_page(name: str):
-    SHEET.add_worksheet(title=name, rows=100, cols=5)
+    """
+    Function create a worksheet for each user
+    """
+    user_wsp = SHEET.add_worksheet(title=name, rows=100, cols=5)
+    user_wsp.append_row(["task_description", "status", "category", "time_stamp"])
 
 
 def delete_user_tasks_page(name):
@@ -86,38 +90,73 @@ def delete_user_tasks_page(name):
 
 
 def add_task(task):
+    # TODO document why this method is empty
     pass
 
 
 def delete_task(task_id: int):
+    # TODO document why this method is empty
     pass
 
 
 def show_tasks():
+    # TODO document why this method is empty
     pass
 
 
 def edit_task():
+    # TODO document why this method is empty
     pass
 
 
 def show_closed_tasks():
+    # TODO document why this method is empty
     pass
 
 
 def show_active_tasks():
+    # TODO document why this method is empty
     pass
+
+
+def enter_user_name():
+    """
+    User input name. Function check if the name exist.
+    """
+    print("Please enter your name:")
+    user_name = input()
+
+    return user_name
 
 
 def main():
     """
-    Main function. Starts
+    Main function. It runs all other functions
     """
     clear()
-    print("Please enter your name:")
-    user_name = input()
+    print("Hello, dear friend. Let's meet?\n")
+    print("Enter Y if you are a 'New User',\n")
+    print("or N if you are already registered.\n")
+    is_register = input()
+    if is_register in "yY":
+        # TODO: Add implementation
+        pass
+    elif is_register in "nN":
+        # TODO: Add implementation
+        pass
+    else:
+        print("Please enter correct answer")
+
+    # while True:
+    #     print("Please enter your name:")
+    #     user_name = input()
+    #     print("Please enter your password:")
+    #     user_password = input()
+
     while True:
         # clear()
+        print("Please enter your name:")
+        user_name = input()
         print("Enter your chose:")
         print("(F) TEST FUNCTIONS")
         print("(A) Add task")
@@ -133,11 +172,11 @@ def main():
             sleep(2)
             break
         elif answer in "fF":
-            pw = hash_password()
-            print(pw)
-            add_user(user_name, pw)
-            print(check_user_password(user_name, pw))
-            # create_user_tasks_page(user_name)
+            # pw = hash_password()
+            # print(pw)
+            # add_user(user_name, pw)
+            # print(check_user_password(user_name, pw))
+            create_user_tasks_page(user_name)
             # delete_user_tasks_page("id:1271026672")
             sleep(10)
         elif answer in "aA":
