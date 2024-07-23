@@ -110,10 +110,9 @@ def delete_task(user_name: str, task_id: int):
 def show_tasks(user_name):
     wh = SHEET.worksheet(user_name)
     all_records = wh.get_all_records()
-    # print(all_records)
     for count, el in enumerate(all_records, start=1):
         print(
-            f"| {count} | {el['task_description']} | {el['status']} | {el['category']} | {el['time_stamp']} | {el['id']} |"
+            f"| {str(count).rjust(2, '0')} | {el['task_description']} | {el['status']} | {el['category']} | {el['time_stamp']} | {el['id']} |"
         )
 
 
