@@ -102,18 +102,22 @@ def add_task(user_name: str, task: str):
     worksheet_append_row(user_name, user_task)
 
 
-def delete_task(user_name: str, task_id: int):
+def delete_task(user_name: str, task_id: str):
     wh = SHEET.worksheet(user_name)
-    wh.delete_rows((task_id + 1))
+    cell = wh.find(task_id)
+    wh.delete_rows(cell.row)
 
 
-def show_tasks(user_name):
-    wh = SHEET.worksheet(user_name)
-    all_records = wh.get_all_records()
-    for count, el in enumerate(all_records, start=1):
+def print_tasks(tasks_lst: list):
+    for count, el in enumerate(tasks_lst, start=1):
         print(
-            f"| {str(count).rjust(2, '0')} | {el['task_description']} | {el['status']} | {el['category']} | {el['time_stamp']} | {el['id']} |"
+            f"| {count:02} | {el['task_description']} | {el['status']} | {el['category']} | {el['time_stamp']} | {el['id']} |"
         )
+
+
+def show_tasks(user_name: str) -> list:
+    wh = SHEET.worksheet(user_name)
+    return wh.get_all_records()
 
 
 def edit_task():
@@ -121,14 +125,13 @@ def edit_task():
     pass
 
 
-def show_closed_tasks():
-    # TODO document why this method is empty
-    pass
-
-
-def show_active_tasks():
-    # TODO document why this method is empty
-    pass
+def show_task_by_status(user_name: str, status: str) -> tuple:
+    wh = SHEET.worksheet(user_name)
+    all_records = wh.get_all_records()
+    filtered_elements = tuple(
+        filter((lambda el: True if el["status"] == status else False), all_records)
+    )
+    return filtered_elements
 
 
 def enter_user_name():
@@ -193,8 +196,13 @@ def main():
             # print(check_user_password(user_name, pw))
             # create_user_tasks_page(user_name)
             # add_task("test", "ththththth")
-            show_tasks("test")
-            # delete_task("test", 38)
+            # all_tasks = show_tasks("test")
+            # print_tasks(all_tasks)
+            closed_tasks = show_task_by_status("test", "close")
+            print_tasks(closed_tasks)
+            # open_tasks = show_task_by_status("test", "open")
+            # print_tasks(open_tasks)
+            delete_task("test", "34")
             # show_tasks("test")
             sleep(10)
         elif answer in "aA":
