@@ -6,11 +6,10 @@
 # import only system from os
 # To hash password
 import hashlib
-from datetime import datetime
-from os import name, system
 
 # import sleep to show output for some time period
-from time import sleep
+import time
+from os import name, system
 
 import gspread
 from google.oauth2.service_account import Credentials
@@ -82,8 +81,8 @@ def create_user_tasks_page(name: str):
     """
     Create a worksheet for each user
     """
-    user_wsp = SHEET.add_worksheet(title=name, rows=1, cols=3)
-    user_wsp.append_row(["task", "time_stamp", "id"])
+    user_wsp = SHEET.add_worksheet(title=name, rows=1, cols=2)
+    user_wsp.append_row(["task", "time_stamp"])
 
 
 def add_task(user_name: str, task: str):
@@ -101,20 +100,19 @@ def gen_task_id(user_name):
     return gen_id
 
 
-def delete_task(user_name: str, task_id: str):
+def delete_task(user_name: str, task_num: str):
     ws = SHEET.worksheet(user_name)
-    cell = ws.find(task_id)
-    ws.delete_rows(cell.row)
+    row_num = int(task_num) + 1
+    ws.delete_rows(row_num)
 
 
 def print_tasks(tasks_lst: list):
     for count, el in enumerate(tasks_lst, start=1):
-        print(f"| {count:02} | {el['task']}  | {el['time_stamp']} | {el['id']} |")
+        print(f"| {count:02} | {el['task']}  | {el['time_stamp']} |")
 
 
 def time_stamp():
-    dn = datetime.now()
-
+    dn = time.localtime()
     return dn.strftime("%Y-%m-%d")
 
 
@@ -123,12 +121,18 @@ def show_tasks(user_name: str) -> list:
     return ws.get_all_records()
 
 
-def edit_task(user_name: str, task_id: str):
+def sleep(time):
+    time.sleep(time)
+
+
+def edit_task(user_name: str, task_num: str):
     ws = SHEET.worksheet(user_name)
-    cell = ws.find(task_id)
-    print(f"{cell.value} change to: ")
+    row_data = ws.row_values(int(task_num) + 1)
+    # cell = ws.find(task_id)
+    # print(f"{cell.value} change to: ")
     changed_data = input()
-    update_cell(ws, cell.row, 1, changed_data)
+    # update_cell(ws, cell.row, 1, changed_data)
+    print(row_data)
 
 
 def update_cell(ws, row: int, col: int, data: str):
@@ -188,6 +192,8 @@ def main():
                 sleep(2)
             elif answer in "eE":
                 print(f"{user_name} you can edit the task")
+                tsk_num = input("Enter number of task to edit:")
+                edit_task(user_name, tsk_num)
                 sleep(2)
             elif answer in "dD":
                 print(f"{user_name} you can delete the task")
