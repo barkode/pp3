@@ -126,11 +126,12 @@ def sleep(sec):
 def edit_task(user_name: str, task_num: str):
     ws = SHEET.worksheet(user_name)
     row_data = ws.row_values(int(task_num) + 1)
-    # cell = ws.find(task_id)
-    # print(f"{cell.value} change to: ")
-    changed_data = input()
-    # update_cell(ws, cell.row, 1, changed_data)
     print(row_data)
+    print(row_data[2])
+    cell = ws.find(row_data[2])
+    changed_data = input()
+    update_cell(ws, cell.row, 1, changed_data)
+    sleep(10)
 
 
 def update_cell(ws, row: int, col: int, data: str):
