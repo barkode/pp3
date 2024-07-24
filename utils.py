@@ -1,5 +1,10 @@
+# To hash password
 import hashlib
+
+# To create timestamp
 import time
+
+# import only system from os
 from os import name, system
 
 
