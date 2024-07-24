@@ -160,23 +160,35 @@ def enter_user_name():
     return user_name
 
 
+def welcome_screen(user_name):
+    try:
+        while True:
+            clear()
+            print("Are you registered? (Y)es or (N)o:")
+            is_in_system = input()
+            if is_in_system in "yY":
+                print("Greetings. Welcome back. Please enter your name.")
+                return "Y"
+            elif is_in_system in "nN":
+                print("You need to register.")
+                return "N"
+            else:
+                print("Wrong answer. Please enter Y or N.")
+                sleep(3)
+    except KeyboardInterrupt:
+        print(f"Bye {user_name}")
+
+
 def main():
     """
     Main function. It runs all other functions
     """
     clear()
     user_name = "Dear user"
+    user_in_system = welcome_screen(user_name)
+    print(user_in_system)
     # Ask if user is in the system
     try:
-        print("Are you register? (Y)es or (N)o:")
-        is_in_system = input()
-        if is_in_system in "yY":
-            print("Greetings. Welcome back. Please enter your name.")
-        elif is_in_system in "nN":
-            print("You need to register.")
-        else:
-            print("Wrong answer. Please enter Y or N.")
-            sleep(2)
         # except KeyboardInterrupt:
         #     print(f"Bye {user_name}")
 
