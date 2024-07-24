@@ -44,10 +44,10 @@ def check_user_name(user_name: str) -> bool:
     """
     ws = SHEET.worksheet("users")
     users = ws.col_values(1)[1:]
-    if user_name not in users:
-        print("Sorry need other name")
-        return True
-    return False
+    if user_name in users:
+        print("Sorry the name is exist. Try other name.\n")
+        return False
+    return True
 
 
 def worksheet_append_row(ws_name: str, row: list):
@@ -166,22 +166,46 @@ def main():
     """
     clear()
     user_name = "Dear user"
+    # Ask if user is in the system
     try:
+        print("Are you register? (Y)es or (N)o:")
+        is_in_system = input()
+        if is_in_system in "yY":
+            print("Greetings. Welcome back. Please enter your name.")
+        elif is_in_system in "nN":
+            print("You need to register.")
+        else:
+            print("Wrong answer. Please enter Y or N.")
+            sleep(2)
+        # except KeyboardInterrupt:
+        #     print(f"Bye {user_name}")
+
+        # Check username
+        # try:
         while True:
-            # print("Please enter your name:")
-            # user_name = input()
-            user_name = "test"
+            print("Please enter your name:")
+            user_name = input()
+            if_user_exist = check_user_name(user_name)
+            break
+        # except KeyboardInterrupt:
+        #     print(f"Bye {user_name}")
+
+        # Show menu
+        # try:
+        while True:
+            # user_name = "test"
             all_tasks = show_tasks(user_name)
             clear()
             print_tasks(all_tasks)
             print("Enter your chose:")
             print(
-                "(A)dd task", "Show (T)asks", "(E)dit task", "(D)elete task", "(Q)uit"
+                "(A)dd task",
+                "Show (T)asks",
+                "(E)dit task",
+                "(D)elete task",
+                "(Q)uit",
+                sep=" |",
             )
-            # print("Show (T)asks")
-            # print("(E)dit task")
-            # print("(D)elete task")
-            # print("(Q)uit")
             answer = input()
             sleep(1)
             if answer in "qQ":
