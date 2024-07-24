@@ -191,6 +191,8 @@ def main():
                 sleep(2)
             elif answer in "dD":
                 print(f"{user_name} you can delete the task")
+                tsk_id = input("Enter task ID: ")
+                delete_task(user_name, tsk_id)
                 sleep(2)
             else:
                 print("Enter correct letter")
