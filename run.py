@@ -87,16 +87,14 @@ def create_user_tasks_page(name: str):
 
 def add_task(user_name: str, task: str):
     time = time_stamp()
-    gen_id = gen_task_id(user_name)
-    print(time)
+    gen_id = gen_task_id()
     user_task = [task, time, gen_id]
     return worksheet_append_row(user_name, user_task)
 
 
-def gen_task_id(user_name):
-    ws = SHEET.worksheet(user_name)
-    cell = ws.find("id")
-    gen_id = len(ws.col_values(cell.col))
+def gen_task_id():
+    # Generate a timestamp-based ID
+    gen_id = str(int(time.time()))
     return gen_id
 
 
@@ -112,8 +110,8 @@ def print_tasks(tasks_lst: list):
 
 
 def time_stamp():
-    dn = time.localtime()
-    return dn.strftime("%Y-%m-%d")
+    time_now = time.localtime()
+    return time.strftime("%Y-%m-%d", time_now)
 
 
 def show_tasks(user_name: str) -> list:
@@ -121,8 +119,8 @@ def show_tasks(user_name: str) -> list:
     return ws.get_all_records()
 
 
-def sleep(time):
-    time.sleep(time)
+def sleep(sec):
+    time.sleep(sec)
 
 
 def edit_task(user_name: str, task_num: str):
