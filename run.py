@@ -82,12 +82,15 @@ def create_user_tasks_page(name: str):
     """
     Create a worksheet for each user
     """
-    user_wsp = SHEET.add_worksheet(title=name, rows=1, cols=5)
-    user_wsp.append_row(["task", "status", "category", "time_stamp"])
+    user_wsp = SHEET.add_worksheet(title=name, rows=1, cols=3)
+    user_wsp.append_row(["task", "time_stamp", "id"])
 
 
-def add_task(user_name: str, task: str, id: str):
-    user_task = [task, "time", id]
+def add_task(user_name: str, task: str):
+    time = time_stamp()
+    gen_id = gen_task_id(user_name)
+    print(time)
+    user_task = [task, time, gen_id]
     return worksheet_append_row(user_name, user_task)
 
 
@@ -110,7 +113,9 @@ def print_tasks(tasks_lst: list):
 
 
 def time_stamp():
-    return datetime.now()
+    dn = datetime.now()
+
+    return dn.strftime("%Y-%m-%d")
 
 
 def show_tasks(user_name: str) -> list:
@@ -130,15 +135,6 @@ def update_cell(ws, row: int, col: int, data: str):
     ws.update_cell(row, col, data)
 
 
-def show_task_by_status(user_name: str, status: str) -> tuple:
-    ws = SHEET.worksheet(user_name)
-    all_records = ws.get_all_records()
-    filtered_elements = tuple(
-        filter((lambda el: True if el["status"] == status else False), all_records)
-    )
-    return filtered_elements
-
-
 def enter_user_name():
     """
     User input name. Function check if the name exist.
@@ -154,40 +150,23 @@ def main():
     Main function. It runs all other functions
     """
     clear()
-    # print(wh)
-    # wks_id =
-    # SHEET.del_worksheet_by_id("")
-    # print("Hello, dear friend. Let's meet?\n")
-    # print("Enter Y if you are a 'New User',\n")
-    # print("or N if you are already registered.\n")
-    # is_register = input()
-    # if is_register in "yY":
-    #     # TODO: Add implementation
-    #     pass
-    # elif is_register in "nN":
-    #     # TODO: Add implementation
-    #     pass
-    # else:
-    #     print("Please enter correct answer")
-
-    # while True:
-    #     print("Please enter your name:")
-    #     user_name = input()
-    #     print("Please enter your password:")
-    #     user_password = input()
     user_name = "Dear user"
     try:
         while True:
-            # clear()
-            print("Please enter your name:")
-            user_name = input()
+            # print("Please enter your name:")
+            # user_name = input()
+            user_name = "test"
+            all_tasks = show_tasks(user_name)
+            clear()
+            print_tasks(all_tasks)
             print("Enter your chose:")
-            print("(F) TEST FUNCTIONS")
-            print("(A) Add task")
-            print("(T) Show Tasks")
-            print("(E) Edit task")
-            print("(D) Delete task")
-            print("(Q) Quit")
+            print(
+                "(A)dd task", "Show (T)asks", "(E)dit task", "(D)elete task", "(Q)uit"
+            )
+            # print("Show (T)asks")
+            # print("(E)dit task")
+            # print("(D)elete task")
+            # print("(Q)uit")
             answer = input()
             sleep(1)
             if answer in "qQ":
@@ -195,30 +174,17 @@ def main():
                 print(f"Bye {user_name}")
                 sleep(2)
                 break
-            elif answer in "fF":
-                # pw = hash_password()
-                # print(pw)
-                # add_user(user_name, pw)
-                # print(check_user_password(user_name, pw))
-                # create_user_tasks_page(user_name)
-                dd = gen_task_id("test")
-                tsk = add_task("test", "ththththth", dd)
-                print(f"TASK ADDED: {tsk}")
-                all_tasks = show_tasks("test")
-                print_tasks(all_tasks)
-                # closed_tasks = show_task_by_status("test", "close")
-                # print_tasks(closed_tasks)
-                # open_tasks = show_task_by_status("test", "open")
-                # print_tasks(open_tasks)
-                # delete_task("test", "34")
-                show_tasks("test")
-                edit_task("test", "23")
-                sleep(10)
             elif answer in "aA":
-                print(f"{user_name} you can add the task")
+                clear()
+                print(f"{user_name} you can add the new task\n")
+                input_task = input()
+                add_task(user_name, input_task)
                 sleep(2)
             elif answer in "tT":
-                print(f"{user_name} i show you your tasks")
+                print(f"{user_name} i show your tasks")
+                all_tasks = show_tasks(user_name)
+                clear()
+                print_tasks(all_tasks)
                 sleep(2)
             elif answer in "eE":
                 print(f"{user_name} you can edit the task")
