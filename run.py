@@ -153,14 +153,22 @@ def update_cell(ws, row: int, col: int, data: str):
     ws.update_cell(row, col, data)
 
 
-def check_user_name_entering():
+def check_user_name_entering(user_name):
     """
     Input user name. Check if user enter not empty string.
     """
-    print("Please enter your name:")
-    user_name = input()
-
-    return user_name.strip().lower()
+    if len(user_name) > 30:
+        return {"bool": False, "msg": "The length cannot be more than 30 characters"}
+    for char in user_name:
+        if (
+            char
+            not in "aAbBcCdDeEfFgGhHiIgGkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890_"
+        ):
+            return {
+                "bool": False,
+                "msg": "The login must contain letters, numbers and an underscore",
+            }
+    return {"bool": True, "msg": user_name.strip()}
 
 
 def add_new_user(user_name):
