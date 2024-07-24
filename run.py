@@ -14,6 +14,10 @@ from os import name, system
 import gspread
 from google.oauth2.service_account import Credentials
 
+# import from rich library for draw tables
+from rich.console import Console
+from rich.table import Table
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -105,8 +109,16 @@ def delete_task(user_name: str, task_num: str):
 
 
 def print_tasks(tasks_lst: list):
+    console = Console()
+    table = Table(show_header=True, header_style="bold magenta")
+    table.add_column("Number", style="dim", width=12)
+    table.add_column("Tasks")
+    table.add_column("Date", justify="right")
     for count, el in enumerate(tasks_lst, start=1):
-        print(f"| {count:02} | {el['task']}  | {el['time_stamp']} |")
+        table.add_row(f"{count:02}", f'{el["task"]}', f'{el["time_stamp"]}')
+    # for count, el in enumerate(tasks_lst, start=1):
+    #     print(f"| {count:02} | {el['task']}  | {el['time_stamp']} |")
+    console.print(table)
 
 
 def time_stamp():
