@@ -6,7 +6,8 @@
 # import only system from os
 # To hash password
 import hashlib
-from os import link, name, system
+from datetime import datetime
+from os import name, system
 
 # import sleep to show output for some time period
 from time import sleep
@@ -108,6 +109,10 @@ def print_tasks(tasks_lst: list):
         print(f"| {count:02} | {el['task']}  | {el['time_stamp']} | {el['id']} |")
 
 
+def time_stamp():
+    return datetime.now()
+
+
 def show_tasks(user_name: str) -> list:
     ws = SHEET.worksheet(user_name)
     return ws.get_all_records()
@@ -121,7 +126,7 @@ def edit_task(user_name: str, task_id: str):
     update_cell(ws, cell.row, 1, changed_data)
 
 
-def update_cell(ws: link, row: int, col: int, data: str):
+def update_cell(ws, row: int, col: int, data: str):
     ws.update_cell(row, col, data)
 
 
