@@ -5,11 +5,6 @@
 
 # import only system from os
 # To hash password
-import hashlib
-
-# import sleep to show output for some time period
-import time
-from os import name, system
 
 import gspread
 from google.oauth2.service_account import Credentials
@@ -17,6 +12,8 @@ from google.oauth2.service_account import Credentials
 # import from rich library for draw tables
 from rich.console import Console
 from rich.table import Table
+
+from utils import clear, gen_task_id, sleep, time_stamp
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -33,12 +30,6 @@ SHEET = GSPREAD_CLIENT.open("stodo")
 
 # Default user name
 DEFAULT_USERNAME = "Dear User"
-
-
-def clear():
-    """Clear screen"""
-    # for windows
-    system("cls") if name == "nt" else system("clear")
 
 
 def check_user_name(user_name: str) -> bool:
@@ -66,15 +57,6 @@ def add_user_to_base(user_name: str, user_password: str, user_role="user"):
     worksheet_append_row("users", user)
 
 
-def hash_password(password: str) -> str:
-    """
-    Function hash user password and return hashed password
-    """
-    # Hash the password
-    pw = hashlib.sha256(password.encode("utf-8"))
-    return pw.hexdigest()
-
-
 def check_user_password(user_name: str, user_password: str) -> bool:
     ws = SHEET.worksheet("users")
     lst = ws.get_all_values()
@@ -93,16 +75,10 @@ def create_user_tasks_page(name: str):
 
 
 def add_task(user_name: str, task: str):
-    time = time_stamp()
+    time_stmp = time_stamp()
     gen_id = gen_task_id()
-    user_task = [task, time, gen_id]
+    user_task = [task, time_stmp, gen_id]
     return worksheet_append_row(user_name, user_task)
-
-
-def gen_task_id():
-    # Generate a timestamp-based ID
-    gen_id = str(int(time.time()))
-    return gen_id
 
 
 def delete_task(user_name: str, task_num: str):
@@ -119,23 +95,12 @@ def print_tasks(tasks_lst: list):
     table.add_column("Date", justify="right")
     for count, el in enumerate(tasks_lst, start=1):
         table.add_row(f"{count:02}", f'{el["task"]}', f'{el["time_stamp"]}')
-    # for count, el in enumerate(tasks_lst, start=1):
-    #     print(f"| {count:02} | {el['task']}  | {el['time_stamp']} |")
     console.print(table)
-
-
-def time_stamp():
-    time_now = time.localtime()
-    return time.strftime("%Y-%m-%d", time_now)
 
 
 def show_tasks(user_name: str) -> list:
     ws = SHEET.worksheet(user_name)
     return ws.get_all_records()
-
-
-def sleep(sec):
-    time.sleep(sec)
 
 
 def edit_task(user_name: str, task_num: str):
@@ -171,7 +136,11 @@ def check_user_name_entering(user_name):
     return {"bool": True, "msg": user_name.strip()}
 
 
-def add_new_user(user_name):
+def sign_in_user():
+    pass
+
+
+def log_in_user():
     pass
 
 
@@ -208,9 +177,9 @@ def main():
     user_name = DEFAULT_USERNAME
     user_in_system = welcome_screen(user_name)
     if user_in_system:
-        pass
+        sign_in_user()
     else:
-        pass
+        log_in_user()
     try:
         # except KeyboardInterrupt:
         #     print(f"Bye {user_name}")
@@ -277,4 +246,5 @@ def main():
         print(f"Bye {user_name}")
 
 
-main()
+if __name__ == "__main__":
+    main()
