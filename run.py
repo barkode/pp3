@@ -6,7 +6,7 @@
 # import only system from os
 # To hash password
 import hashlib
-from os import name, system
+from os import link, name, system
 
 # import sleep to show output for some time period
 from time import sleep
@@ -27,25 +27,19 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 # Open used google sheets document
 SHEET = GSPREAD_CLIENT.open("stodo")
 
-# wh = SHEET.worksheet("test")
-
 
 def clear():
     """Clear screen"""
     # for windows
-    if name == "nt":
-        _ = system("cls")
-    # for mac and linux(here, os.name is 'posix')
-    else:
-        _ = system("clear")
+    system("cls") if name == "nt" else system("clear")
 
 
 def check_user_name(user_name: str) -> bool:
     """
     Function check if user name exist in base
     """
-    wks = SHEET.worksheet("users")
-    users = wks.col_values(1)[1:]
+    ws = SHEET.worksheet("users")
+    users = ws.col_values(1)[1:]
     if user_name not in users:
         print("Sorry need other name")
         return True
@@ -75,8 +69,8 @@ def hash_password(password: str) -> str:
 
 
 def check_user_password(user_name: str, user_password: str) -> bool:
-    wks = SHEET.worksheet("users")
-    lst = wks.get_all_values()
+    ws = SHEET.worksheet("users")
+    lst = ws.get_all_values()
     for el in lst:
         if (el[0] == user_name) and (el[1] == user_password):
             return True
@@ -88,46 +82,52 @@ def create_user_tasks_page(name: str):
     Create a worksheet for each user
     """
     user_wsp = SHEET.add_worksheet(title=name, rows=1, cols=5)
-    user_wsp.append_row(["task_description", "status", "category", "time_stamp"])
+    user_wsp.append_row(["task", "status", "category", "time_stamp"])
 
 
-# def delete_user_tasks_page(name="1"):
-#     wks_lst = SHEET.worksheets()
-#     print(wks_lst)
-# SHEET.del_worksheet(name)
+def add_task(user_name: str, task: str, id: str):
+    user_task = [task, "time", id]
+    return worksheet_append_row(user_name, user_task)
 
 
-def add_task(user_name: str, task: str):
-    user_task = [task, "active", "category", "time"]
-    worksheet_append_row(user_name, user_task)
+def gen_task_id(user_name):
+    ws = SHEET.worksheet(user_name)
+    cell = ws.find("id")
+    gen_id = len(ws.col_values(cell.col))
+    return gen_id
 
 
 def delete_task(user_name: str, task_id: str):
-    wh = SHEET.worksheet(user_name)
-    cell = wh.find(task_id)
-    wh.delete_rows(cell.row)
+    ws = SHEET.worksheet(user_name)
+    cell = ws.find(task_id)
+    ws.delete_rows(cell.row)
 
 
 def print_tasks(tasks_lst: list):
     for count, el in enumerate(tasks_lst, start=1):
-        print(
-            f"| {count:02} | {el['task_description']} | {el['status']} | {el['category']} | {el['time_stamp']} | {el['id']} |"
-        )
+        print(f"| {count:02} | {el['task']}  | {el['time_stamp']} | {el['id']} |")
 
 
 def show_tasks(user_name: str) -> list:
-    wh = SHEET.worksheet(user_name)
-    return wh.get_all_records()
+    ws = SHEET.worksheet(user_name)
+    return ws.get_all_records()
 
 
-def edit_task():
-    # TODO document why this method is empty
-    pass
+def edit_task(user_name: str, task_id: str):
+    ws = SHEET.worksheet(user_name)
+    cell = ws.find(task_id)
+    print(f"{cell.value} change to: ")
+    changed_data = input()
+    update_cell(ws, cell.row, 1, changed_data)
+
+
+def update_cell(ws: link, row: int, col: int, data: str):
+    ws.update_cell(row, col, data)
 
 
 def show_task_by_status(user_name: str, status: str) -> tuple:
-    wh = SHEET.worksheet(user_name)
-    all_records = wh.get_all_records()
+    ws = SHEET.worksheet(user_name)
+    all_records = ws.get_all_records()
     filtered_elements = tuple(
         filter((lambda el: True if el["status"] == status else False), all_records)
     )
@@ -170,56 +170,62 @@ def main():
     #     user_name = input()
     #     print("Please enter your password:")
     #     user_password = input()
-
-    while True:
-        # clear()
-        print("Please enter your name:")
-        user_name = input()
-        print("Enter your chose:")
-        print("(F) TEST FUNCTIONS")
-        print("(A) Add task")
-        print("(T) Show Tasks")
-        print("(E) Edit task")
-        print("(D) Delete task")
-        print("(Q) Quit")
-        answer = input()
-        sleep(1)
-        if answer in "qQ":
-            clear()
-            print(f"Bye {user_name}")
-            sleep(2)
-            break
-        elif answer in "fF":
-            # pw = hash_password()
-            # print(pw)
-            # add_user(user_name, pw)
-            # print(check_user_password(user_name, pw))
-            # create_user_tasks_page(user_name)
-            # add_task("test", "ththththth")
-            # all_tasks = show_tasks("test")
-            # print_tasks(all_tasks)
-            closed_tasks = show_task_by_status("test", "close")
-            print_tasks(closed_tasks)
-            # open_tasks = show_task_by_status("test", "open")
-            # print_tasks(open_tasks)
-            delete_task("test", "34")
-            # show_tasks("test")
-            sleep(10)
-        elif answer in "aA":
-            print(f"{user_name} you can add the task")
-            sleep(2)
-        elif answer in "tT":
-            print(f"{user_name} i show you your tasks")
-            sleep(2)
-        elif answer in "eE":
-            print(f"{user_name} you can edit the task")
-            sleep(2)
-        elif answer in "dD":
-            print(f"{user_name} you can delete the task")
-            sleep(2)
-        else:
-            print("Enter correct letter")
-            sleep(2)
+    user_name = "Dear user"
+    try:
+        while True:
+            # clear()
+            print("Please enter your name:")
+            user_name = input()
+            print("Enter your chose:")
+            print("(F) TEST FUNCTIONS")
+            print("(A) Add task")
+            print("(T) Show Tasks")
+            print("(E) Edit task")
+            print("(D) Delete task")
+            print("(Q) Quit")
+            answer = input()
+            sleep(1)
+            if answer in "qQ":
+                clear()
+                print(f"Bye {user_name}")
+                sleep(2)
+                break
+            elif answer in "fF":
+                # pw = hash_password()
+                # print(pw)
+                # add_user(user_name, pw)
+                # print(check_user_password(user_name, pw))
+                # create_user_tasks_page(user_name)
+                dd = gen_task_id("test")
+                tsk = add_task("test", "ththththth", dd)
+                print(f"TASK ADDED: {tsk}")
+                all_tasks = show_tasks("test")
+                print_tasks(all_tasks)
+                # closed_tasks = show_task_by_status("test", "close")
+                # print_tasks(closed_tasks)
+                # open_tasks = show_task_by_status("test", "open")
+                # print_tasks(open_tasks)
+                # delete_task("test", "34")
+                show_tasks("test")
+                edit_task("test", "23")
+                sleep(10)
+            elif answer in "aA":
+                print(f"{user_name} you can add the task")
+                sleep(2)
+            elif answer in "tT":
+                print(f"{user_name} i show you your tasks")
+                sleep(2)
+            elif answer in "eE":
+                print(f"{user_name} you can edit the task")
+                sleep(2)
+            elif answer in "dD":
+                print(f"{user_name} you can delete the task")
+                sleep(2)
+            else:
+                print("Enter correct letter")
+                sleep(2)
+    except KeyboardInterrupt:
+        print(f"Bye {user_name}")
 
 
 main()
