@@ -31,6 +31,9 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 # Open used google sheets document
 SHEET = GSPREAD_CLIENT.open("stodo")
 
+# Default user name
+DEFAULT_USERNAME = "Dear User"
+
 
 def clear():
     """Clear screen"""
@@ -55,7 +58,7 @@ def worksheet_append_row(ws_name: str, row: list):
     ws.append_row(row)
 
 
-def add_user(user_name: str, user_password: str, user_role="user"):
+def add_user_to_base(user_name: str, user_password: str, user_role="user"):
     """
     Function add the new user to the users base
     """
@@ -150,17 +153,27 @@ def update_cell(ws, row: int, col: int, data: str):
     ws.update_cell(row, col, data)
 
 
-def enter_user_name():
+def check_user_name_entering():
     """
-    User input name. Function check if the name exist.
+    Input user name. Check if user enter not empty string.
     """
     print("Please enter your name:")
     user_name = input()
 
-    return user_name
+    return user_name.strip().lower()
+
+
+def add_new_user(user_name):
+    pass
 
 
 def welcome_screen(user_name):
+    """
+    The function checks whether the user is in the system.
+    If the user is logged in, it returns True.
+    If omitted, the function returns False.
+    If a character different from N or Y is entered, an error is displayed to the user.
+    """
     try:
         while True:
             clear()
@@ -168,10 +181,10 @@ def welcome_screen(user_name):
             is_in_system = input()
             if is_in_system in "yY":
                 print("Greetings. Welcome back. Please enter your name.")
-                return "Y"
+                return True
             elif is_in_system in "nN":
                 print("You need to register.")
-                return "N"
+                return False
             else:
                 print("Wrong answer. Please enter Y or N.")
                 sleep(3)
@@ -184,10 +197,12 @@ def main():
     Main function. It runs all other functions
     """
     clear()
-    user_name = "Dear user"
+    user_name = DEFAULT_USERNAME
     user_in_system = welcome_screen(user_name)
-    print(user_in_system)
-    # Ask if user is in the system
+    if user_in_system:
+        pass
+    else:
+        pass
     try:
         # except KeyboardInterrupt:
         #     print(f"Bye {user_name}")
