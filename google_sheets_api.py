@@ -3,7 +3,7 @@ from time import sleep
 import gspread
 from google.oauth2.service_account import Credentials
 
-from utils import gen_task_id, time_stamp
+from utils import close_app, gen_task_id, time_stamp
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -40,8 +40,8 @@ def check_edit_enter(user_name: str, task_num: str) -> dict:
                 "bool": False,
                 "msg": f"The number should not be larger {tasks_quantity}",
             }
-    except ValueError:
-        print("Please enter only numbers")
+    except KeyboardInterrupt:
+        close_app(f"Bye {user_name}")
 
 
 def edit_task(user_name: str, task_num: str):
@@ -53,7 +53,7 @@ def edit_task(user_name: str, task_num: str):
         update_cell(ws, cell.row, 1, changed_data)
         sleep(2)
     except KeyboardInterrupt:
-        print(f"Bye {user_name}")
+        close_app(f"Bye {user_name}")
 
 
 def show_tasks(user_name: str) -> list:

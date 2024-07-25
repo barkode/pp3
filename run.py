@@ -51,9 +51,7 @@ def sign_in_screen():
                 continue
             return res["msg"]
     except KeyboardInterrupt:
-        print(f"Bye {user_name}")
-        sleep(3)
-        close_app()
+        close_app(f"Bye {user_name}")
 
 
 def log_in_screen():
@@ -74,7 +72,7 @@ def log_in_screen():
                 print(check["msg"])
                 sleep(3)
     except KeyboardInterrupt:
-        print(f"Bye {user_name}")
+        close_app(f"Bye {user_name}")
 
 
 def welcome_screen(user_name):
@@ -102,7 +100,7 @@ def welcome_screen(user_name):
                 print("Wrong answer. Please enter Y or N.")
                 sleep(3)
     except KeyboardInterrupt:
-        print(f"Bye {user_name}")
+        close_app(f"Bye {user_name}")
 
 
 def main():
@@ -115,7 +113,6 @@ def main():
 
     if user_in_system:
         user_name = log_in_screen()
-        print(user_name)
     else:
         user_name = sign_in_screen()
         user_pw = input("Enter password")
@@ -135,7 +132,7 @@ def main():
                 "(E)dit task",
                 "(D)elete task",
                 "(Q)uit",
-                sep=" |",
+                sep=" | ",
             )
             answer = input()
             sleep(1)
@@ -156,12 +153,12 @@ def main():
             elif answer in "eE":
                 tsk_num = input("Enter number of task to edit:")
                 res = check_edit_enter(user_name, tsk_num)
-                (
+
+                if res["bool"]:
                     edit_task(user_name, tsk_num)
-                    if res["bool"]
-                    else print(f"{res['msg']}")
-                )
-                # edit_task(user_name, tsk_num)
+                else:
+                    print(f"{res['msg']}")
+
                 sleep(2)
             elif answer in "dD":
                 tsk_num = input("Enter task ID: ")
@@ -171,7 +168,7 @@ def main():
                 print("Enter correct letter")
                 sleep(2)
     except KeyboardInterrupt:
-        print(f"Bye {user_name}")
+        close_app(f"Bye {user_name}")
 
 
 if __name__ == "__main__":

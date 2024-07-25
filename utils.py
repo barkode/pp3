@@ -39,5 +39,5 @@ def time_stamp():
     return time.strftime("%Y-%m-%d", time_now)
 
 
-def close_app():
-    sys.exit(0)
+def close_app(msg: str):
+    sys.exit(msg)
