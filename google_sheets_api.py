@@ -32,8 +32,6 @@ def delete_task(user_name: str, task_num: str):
 def edit_task(user_name: str, task_num: str):
     ws = SHEET.worksheet(user_name)
     row_data = ws.row_values(int(task_num) + 1)
-    print(row_data)
-    print(row_data[2])
     cell = ws.find(row_data[2])
     changed_data = input()
     update_cell(ws, cell.row, 1, changed_data)
@@ -96,12 +94,16 @@ def add_task(user_name: str, task: str):
     return worksheet_append_row(user_name, user_task)
 
 
-def check_user_name_entering(user_name):
+def check_user_name_entering(user_name: str) -> dict:
     """
     Input user name. Check if user enter not empty string.
     """
     if len(user_name) > 30:
         return {"bool": False, "msg": "The length cannot be more than 30 characters"}
+
+    if len(user_name) < 1:
+        return {"bool": False, "msg": "The length cannot be empty string"}
+
     for char in user_name:
         if (
             char

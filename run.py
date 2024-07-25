@@ -143,24 +143,19 @@ def main():
                 sleep(2)
                 break
             elif answer in "aA":
-                clear()
-                print(f"{user_name} you can add the new task\n")
                 input_task = input()
                 add_task(user_name, input_task)
                 sleep(2)
             elif answer in "tT":
-                print(f"{user_name} i show your tasks")
                 all_tasks = show_tasks(user_name)
                 clear()
                 print_tasks(all_tasks)
                 sleep(2)
             elif answer in "eE":
-                print(f"{user_name} you can edit the task")
                 tsk_num = input("Enter number of task to edit:")
                 edit_task(user_name, tsk_num)
                 sleep(2)
             elif answer in "dD":
-                print(f"{user_name} you can delete the task")
                 tsk_id = input("Enter task ID: ")
                 delete_task(user_name, tsk_id)
                 sleep(2)
