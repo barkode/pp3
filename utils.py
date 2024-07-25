@@ -16,7 +16,6 @@ def sleep(sec):
 
 def clear():
     """Clear screen"""
-    # for windows
     system("cls") if name == "nt" else system("clear")
 
 

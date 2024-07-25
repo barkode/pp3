@@ -6,6 +6,7 @@ from rich.table import Table
 from google_sheets_api import (
     add_task,
     add_user_to_base,
+    check_edit_enter,
     check_user_name,
     check_user_name_entering,
     check_user_password,
@@ -81,7 +82,8 @@ def welcome_screen(user_name):
     The function checks whether the user is in the system.
     If the user is logged in, it returns True.
     If omitted, the function returns False.
-    If a character different from N or Y is entered, an error is displayed to the user.
+    If a character different from N or Y is entered,
+    an error is displayed to the user.
     """
     try:
         while True:
@@ -153,11 +155,17 @@ def main():
                 sleep(2)
             elif answer in "eE":
                 tsk_num = input("Enter number of task to edit:")
-                edit_task(user_name, tsk_num)
+                res = check_edit_enter(user_name, tsk_num)
+                (
+                    edit_task(user_name, tsk_num)
+                    if res["bool"]
+                    else print(f"{res['msg']}")
+                )
+                # edit_task(user_name, tsk_num)
                 sleep(2)
             elif answer in "dD":
-                tsk_id = input("Enter task ID: ")
-                delete_task(user_name, tsk_id)
+                tsk_num = input("Enter task ID: ")
+                delete_task(user_name, tsk_num)
                 sleep(2)
             else:
                 print("Enter correct letter")

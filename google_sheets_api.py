@@ -29,13 +29,31 @@ def delete_task(user_name: str, task_num: str):
     ws.delete_rows(row_num)
 
 
+def check_edit_enter(user_name: str, task_num: str) -> dict:
+    tasks_quantity = len(show_tasks(user_name))
+    try:
+        if not task_num.isnumeric():
+            return {"bool": False, "msg": "Please enter only number"}
+
+        if int(task_num) > tasks_quantity:
+            return {
+                "bool": False,
+                "msg": f"The number should not be larger {tasks_quantity}",
+            }
+    except ValueError:
+        print("Please enter only numbers")
+
+
 def edit_task(user_name: str, task_num: str):
-    ws = SHEET.worksheet(user_name)
-    row_data = ws.row_values(int(task_num) + 1)
-    cell = ws.find(row_data[2])
-    changed_data = input()
-    update_cell(ws, cell.row, 1, changed_data)
-    sleep(10)
+    try:
+        ws = SHEET.worksheet(user_name)
+        row_data = ws.row_values(int(task_num) + 1)
+        cell = ws.find(row_data[2])
+        changed_data = input()
+        update_cell(ws, cell.row, 1, changed_data)
+        sleep(2)
+    except KeyboardInterrupt:
+        print(f"Bye {user_name}")
 
 
 def show_tasks(user_name: str) -> list:
@@ -99,7 +117,10 @@ def check_user_name_entering(user_name: str) -> dict:
     Input user name. Check if user enter not empty string.
     """
     if len(user_name) > 30:
-        return {"bool": False, "msg": "The length cannot be more than 30 characters"}
+        return {
+            "bool": False,
+            "msg": "The length cannot be more than 30 characters",
+        }
 
     if len(user_name) < 1:
         return {"bool": False, "msg": "The length cannot be empty string"}
