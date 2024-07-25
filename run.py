@@ -1,14 +1,18 @@
 # import from rich library for draw tables
+
 from rich.console import Console
 from rich.table import Table
 
 from google_sheets_api import (
+    add_user_to_base,
+    check_user_name,
     check_user_name_entering,
+    create_user_tasks_page,
 )
-from utils import clear, sleep
+from utils import clear, close_app, hash_password, sleep
 
 # Default user name
-DEFAULT_USERNAME = "Dear User"
+user_name = "Dear User"
 
 
 def print_tasks(tasks_lst: list):
@@ -22,20 +26,28 @@ def print_tasks(tasks_lst: list):
     console.print(table)
 
 
-def sign_in_screen(user_name):
+def sign_in_screen():
     clear()
     try:
         while True:
-            print("Enter your name:\n")
+            clear()
+            print("Enter your reg name:\n")
             uname = input()
             res = check_user_name_entering(uname)
             if not res["bool"]:
                 print(f"{res['msg']}")
                 sleep(3)
                 continue
-            return print(f'{res["msg"]}')
+            res = check_user_name(res["msg"])
+            if not res["bool"]:
+                print(f"{res['msg']}")
+                sleep(3)
+                continue
+            return res["msg"]
     except KeyboardInterrupt:
         print(f"Bye {user_name}")
+        sleep(3)
+        close_app()
 
 
 def log_in_screen(user_name):
@@ -74,12 +86,20 @@ def main():
     Main function. It runs all other functions
     """
     clear()
-    user_name = DEFAULT_USERNAME
+    global user_name
     user_in_system = welcome_screen(user_name)
-    if user_in_system:
-        print(sign_in_screen(user_name))
-    else:
-        log_in_screen(user_name)
+    try:
+        if user_in_system:
+            log_in_screen(user_name)
+        else:
+            user_name = sign_in_screen()
+            user_pw = input("Enter password")
+            hashed_pw = hash_password(user_pw)
+            add_user_to_base(user_name, hashed_pw)
+            create_user_tasks_page(user_name)
+    except KeyboardInterrupt:
+        print(f"Bye {user_name}")
+
     # try:
     #     # except KeyboardInterrupt:
     #     #     print(f"Bye {user_name}")
@@ -89,7 +109,7 @@ def main():
     #     while True:
     #         print("Please enter your name:")
     #         user_name = input()
-    #         if_user_exist = check_user_name(user_name)
+    #         if_user_exist = check_user_name(user_name)["bool"]
     #         break
     #     # except KeyboardInterrupt:
     #     #     print(f"Bye {user_name}")

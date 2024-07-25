@@ -2,6 +2,7 @@
 import hashlib
 
 # To create timestamp
+import sys
 import time
 
 # import only system from os
@@ -37,3 +38,7 @@ def gen_task_id():
 def time_stamp():
     time_now = time.localtime()
     return time.strftime("%Y-%m-%d", time_now)
+
+
+def close_app():
+    sys.exit(0)

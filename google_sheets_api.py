@@ -58,16 +58,18 @@ def add_user_to_base(user_name: str, user_password: str, user_role="user"):
     worksheet_append_row("users", user)
 
 
-def check_user_name(user_name: str) -> bool:
+def check_user_name(user_name: str) -> dict:
     """
     Function check if user name exist in base
     """
     ws = SHEET.worksheet("users")
     users = ws.col_values(1)[1:]
     if user_name in users:
-        print("Sorry the name is exist. Try other name.\n")
-        return False
-    return True
+        return {
+            "bool": False,
+            "msg": "Sorry this name exist in base. Try other name.\n",
+        }
+    return {"bool": True, "msg": user_name}
 
 
 def check_user_password(user_name: str, user_password: str) -> bool:
