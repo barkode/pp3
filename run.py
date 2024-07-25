@@ -4,10 +4,15 @@ from rich.console import Console
 from rich.table import Table
 
 from google_sheets_api import (
+    add_task,
     add_user_to_base,
     check_user_name,
     check_user_name_entering,
+    check_user_password,
     create_user_tasks_page,
+    delete_task,
+    edit_task,
+    show_tasks,
 )
 from utils import clear, close_app, hash_password, sleep
 
@@ -32,8 +37,8 @@ def sign_in_screen():
         while True:
             clear()
             print("Enter your reg name:\n")
-            uname = input()
-            res = check_user_name_entering(uname)
+            u_login = input()
+            res = check_user_name_entering(u_login)
             if not res["bool"]:
                 print(f"{res['msg']}")
                 sleep(3)
@@ -50,8 +55,25 @@ def sign_in_screen():
         close_app()
 
 
-def log_in_screen(user_name):
-    print("HELLO I AM LOG IN")
+def log_in_screen():
+    try:
+        while True:
+            u_login = input("Input your login: ")
+            res = check_user_name_entering(u_login)
+            if not res["bool"]:
+                print(f"{res['msg']}")
+                sleep(3)
+                continue
+            u_pwd = input("Input your password: ")
+            h_pwd = hash_password(u_pwd)
+            check = check_user_password(u_login, h_pwd)
+            if check["bool"]:
+                return u_login
+            else:
+                print(check["msg"])
+                sleep(3)
+    except KeyboardInterrupt:
+        print(f"Bye {user_name}")
 
 
 def welcome_screen(user_name):
@@ -88,82 +110,65 @@ def main():
     clear()
     global user_name
     user_in_system = welcome_screen(user_name)
+
+    if user_in_system:
+        user_name = log_in_screen()
+        print(user_name)
+    else:
+        user_name = sign_in_screen()
+        user_pw = input("Enter password")
+        hashed_pw = hash_password(user_pw)
+        add_user_to_base(user_name, hashed_pw)
+        create_user_tasks_page(user_name)
+
     try:
-        if user_in_system:
-            log_in_screen(user_name)
-        else:
-            user_name = sign_in_screen()
-            user_pw = input("Enter password")
-            hashed_pw = hash_password(user_pw)
-            add_user_to_base(user_name, hashed_pw)
-            create_user_tasks_page(user_name)
+        while True:
+            all_tasks = show_tasks(user_name)
+            clear()
+            print_tasks(all_tasks)
+            print("Enter your chose:")
+            print(
+                "(A)dd task",
+                "Show (T)asks",
+                "(E)dit task",
+                "(D)elete task",
+                "(Q)uit",
+                sep=" |",
+            )
+            answer = input()
+            sleep(1)
+            if answer in "qQ":
+                clear()
+                print(f"Bye {user_name}")
+                sleep(2)
+                break
+            elif answer in "aA":
+                clear()
+                print(f"{user_name} you can add the new task\n")
+                input_task = input()
+                add_task(user_name, input_task)
+                sleep(2)
+            elif answer in "tT":
+                print(f"{user_name} i show your tasks")
+                all_tasks = show_tasks(user_name)
+                clear()
+                print_tasks(all_tasks)
+                sleep(2)
+            elif answer in "eE":
+                print(f"{user_name} you can edit the task")
+                tsk_num = input("Enter number of task to edit:")
+                edit_task(user_name, tsk_num)
+                sleep(2)
+            elif answer in "dD":
+                print(f"{user_name} you can delete the task")
+                tsk_id = input("Enter task ID: ")
+                delete_task(user_name, tsk_id)
+                sleep(2)
+            else:
+                print("Enter correct letter")
+                sleep(2)
     except KeyboardInterrupt:
         print(f"Bye {user_name}")
-
-    # try:
-    #     # except KeyboardInterrupt:
-    #     #     print(f"Bye {user_name}")
-
-    #     # Check username
-    #     # try:
-    #     while True:
-    #         print("Please enter your name:")
-    #         user_name = input()
-    #         if_user_exist = check_user_name(user_name)["bool"]
-    #         break
-    #     # except KeyboardInterrupt:
-    #     #     print(f"Bye {user_name}")
-
-    #     # Show menu
-    #     # try:
-    #     while True:
-    #         # user_name = "test"
-    #         all_tasks = show_tasks(user_name)
-    #         clear()
-    #         print_tasks(all_tasks)
-    #         print("Enter your chose:")
-    #         print(
-    #             "(A)dd task",
-    #             "Show (T)asks",
-    #             "(E)dit task",
-    #             "(D)elete task",
-    #             "(Q)uit",
-    #             sep=" |",
-    #         )
-    #         answer = input()
-    #         sleep(1)
-    #         if answer in "qQ":
-    #             clear()
-    #             print(f"Bye {user_name}")
-    #             sleep(2)
-    #             break
-    #         elif answer in "aA":
-    #             clear()
-    #             print(f"{user_name} you can add the new task\n")
-    #             input_task = input()
-    #             add_task(user_name, input_task)
-    #             sleep(2)
-    #         elif answer in "tT":
-    #             print(f"{user_name} i show your tasks")
-    #             all_tasks = show_tasks(user_name)
-    #             clear()
-    #             print_tasks(all_tasks)
-    #             sleep(2)
-    #         elif answer in "eE":
-    #             print(f"{user_name} you can edit the task")
-    #             tsk_num = input("Enter number of task to edit:")
-    #             edit_task(user_name, tsk_num)
-    #             sleep(2)
-    #         elif answer in "dD":
-    #             print(f"{user_name} you can delete the task")
-    #             tsk_id = input("Enter task ID: ")
-    #             delete_task(user_name, tsk_id)
-    #             sleep(2)
-    #         else:
-    #             print("Enter correct letter")
-    #             sleep(2)
-    # except KeyboardInterrupt:
-    #     print(f"Bye {user_name}")
 
 
 if __name__ == "__main__":

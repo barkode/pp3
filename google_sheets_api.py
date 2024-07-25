@@ -72,13 +72,13 @@ def check_user_name(user_name: str) -> dict:
     return {"bool": True, "msg": user_name}
 
 
-def check_user_password(user_name: str, user_password: str) -> bool:
+def check_user_password(user_name: str, user_password: str) -> dict:
     ws = SHEET.worksheet("users")
     lst = ws.get_all_values()
     for el in lst:
         if (el[0] == user_name) and (el[1] == user_password):
-            return True
-    return False
+            return {"bool": True, "msg": "Login and password is correct"}
+    return {"bool": False, "msg": "Login or password isn't correct"}
 
 
 def create_user_tasks_page(name: str):
