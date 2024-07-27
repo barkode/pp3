@@ -1,5 +1,5 @@
 # import from rich library for draw tables
-
+import pyfiglet
 from rich.console import Console
 from rich.table import Table
 
@@ -85,6 +85,12 @@ def log_in_screen():
         close_app(f"Bye {user_name}")
 
 
+def print_logo(text: str):
+    """Print the ascii app logo"""
+    ascii_art = pyfiglet.figlet_format(text, font="banner3-D")
+    print(ascii_art)
+
+
 def welcome_screen(user_name):
     """
     The function checks whether the user is in the system.
@@ -96,7 +102,13 @@ def welcome_screen(user_name):
     try:
         while True:
             clear()
+            print_logo("sTODO")
             print("Are you registered? (Y)es or (N)o:")
+            print("")
+            print("Y - existing user ")
+            print("N - new user")
+            print("")
+            print("Enter Y or N :")
             is_in_system = input()
             if is_in_system in "yY":
                 print("Greetings. Welcome back. Please enter your name.")
