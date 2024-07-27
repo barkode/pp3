@@ -19,17 +19,21 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("stodo")
 
 
-def update_cell(ws, row: int, col: int, data: str):
+def update_cell(user_name: str, row: int, col: int, data: str):
+    """Update a specific cell."""
+    ws = SHEET.worksheet(user_name)
     ws.update_cell(row, col, data)
 
 
 def delete_task(user_name: str, task_num: str):
+    """Deleting a task by number"""
     ws = SHEET.worksheet(user_name)
     row_num = int(task_num) + 1
     ws.delete_rows(row_num)
 
 
 def check_edit_enter(user_name: str, task_num: str) -> dict:
+    """Check the task number entered by the user"""
     tasks_quantity = len(show_tasks(user_name))
     try:
         if not task_num.isnumeric():
@@ -40,28 +44,32 @@ def check_edit_enter(user_name: str, task_num: str) -> dict:
                 "bool": False,
                 "msg": f"The number should not be larger {tasks_quantity}",
             }
+        return {"bool": True, "msg": task_num}
     except KeyboardInterrupt:
         close_app(f"Bye {user_name}")
 
 
 def edit_task(user_name: str, task_num: str):
+    """Edit the task function"""
     try:
         ws = SHEET.worksheet(user_name)
         row_data = ws.row_values(int(task_num) + 1)
         cell = ws.find(row_data[2])
         changed_data = input()
-        update_cell(ws, cell.row, 1, changed_data)
+        update_cell(user_name, cell.row, 1, changed_data)
         sleep(2)
     except KeyboardInterrupt:
         close_app(f"Bye {user_name}")
 
 
 def show_tasks(user_name: str) -> list:
+    """Show the user tasks"""
     ws = SHEET.worksheet(user_name)
     return ws.get_all_records()
 
 
 def worksheet_append_row(ws_name: str, row: list):
+    """Add the new row with task to the user worksheet list"""
     ws = SHEET.worksheet(ws_name)
     ws.append_row(row)
 
@@ -89,6 +97,7 @@ def check_user_name(user_name: str) -> dict:
 
 
 def check_user_password(user_name: str, user_password: str) -> dict:
+    """"""
     ws = SHEET.worksheet("users")
     lst = ws.get_all_values()
     for el in lst:
@@ -99,13 +108,14 @@ def check_user_password(user_name: str, user_password: str) -> dict:
 
 def create_user_tasks_page(name: str):
     """
-    Create a worksheet for each user
+    Create a own worksheet for each user
     """
     user_wsp = SHEET.add_worksheet(title=name, rows=1, cols=2)
-    user_wsp.append_row(["task", "time_stamp"])
+    user_wsp.append_row(["task", "time_stamp", "id"])
 
 
 def add_task(user_name: str, task: str):
+    """Add the task to user worksheet page"""
     time_stmp = time_stamp()
     gen_id = gen_task_id()
     user_task = [task, time_stmp, gen_id]

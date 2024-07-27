@@ -9,9 +9,9 @@ import time
 from os import name, system
 
 
-# import sleep to show output for some time period
-def sleep(sec):
-    time.sleep(sec)
+def sleep(seconds: float):
+    """Adds delay in seconds"""
+    time.sleep(seconds)
 
 
 def clear():
@@ -20,16 +20,14 @@ def clear():
 
 
 def hash_password(password: str) -> str:
-    """
-    Function hash user password and return hashed password
-    """
+    """Hash user password and return hashed password"""
     # Hash the password
     pw = hashlib.sha256(password.encode("utf-8"))
     return pw.hexdigest()
 
 
 def gen_task_id():
-    # Generate a timestamp-based ID
+    """Generate a timestamp-based ID"""
     gen_id = str(int(time.time()))
     return gen_id
 
@@ -40,4 +38,5 @@ def time_stamp():
 
 
 def close_app(msg: str):
+    """Terminates the app with a system call"""
     sys.exit(msg)

@@ -3,7 +3,7 @@
 from rich.console import Console
 from rich.table import Table
 
-from google_sheets_api import (
+from gsheets_api import (
     add_task,
     add_user_to_base,
     check_edit_enter,
@@ -22,8 +22,12 @@ user_name = "Dear User"
 
 
 def print_tasks(tasks_lst: list):
+    """Print the table with tasks. Used the Rich library."""
     console = Console()
-    table = Table(show_header=True, header_style="bold magenta")
+    console.print(f"Hello, {user_name}. Your table with tasks.")
+    table = Table(
+        show_header=True, header_style="bold magenta", caption_style="magenta"
+    )
     table.add_column("Number", style="dim", width=12)
     table.add_column("Tasks")
     table.add_column("Date", justify="right")
@@ -33,6 +37,9 @@ def print_tasks(tasks_lst: list):
 
 
 def sign_in_screen():
+    """Called when the user is not registered in the system.
+    Shows a screen inviting the user to register with the system.
+    """
     clear()
     try:
         while True:
@@ -55,6 +62,9 @@ def sign_in_screen():
 
 
 def log_in_screen():
+    """Shows the user login screen.
+    Checks if the user and password exist in the base.
+    """
     try:
         while True:
             u_login = input("Input your login: ")
@@ -155,7 +165,7 @@ def main():
                 res = check_edit_enter(user_name, tsk_num)
 
                 if res["bool"]:
-                    edit_task(user_name, tsk_num)
+                    edit_task(user_name, res["msg"])
                 else:
                     print(f"{res['msg']}")
 
