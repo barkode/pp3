@@ -8,6 +8,7 @@ import time
 # import only system from os
 from os import name, system
 
+import maskpass
 from rich.console import Console
 
 
@@ -44,7 +45,12 @@ def close_app(msg: str):
     sys.exit(msg)
 
 
-def print_app(text: str, style: str):
+def print_text(text: str, style="default"):
     """Print the styled messages"""
     console = Console()
     console.print(text, style=style)
+
+
+def hide_user_pass():
+    pwd = maskpass.askpass(prompt="Password:", mask="#")
+    return pwd

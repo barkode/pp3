@@ -15,11 +15,17 @@ from gsheets_api import (
     edit_task,
     show_tasks,
 )
-from utils import clear, close_app, hash_password, print_app, sleep
+from utils import (
+    clear,
+    close_app,
+    hash_password,
+    hide_user_pass,
+    print_text,
+    sleep,
+)
 
 # Default user name
 user_name = "Dear User"
-# console = Console()
 
 
 def print_tasks(tasks_lst: list):
@@ -27,14 +33,16 @@ def print_tasks(tasks_lst: list):
     console = Console()
     console.print(f"Hello, {user_name}. Your table with tasks.")
     table = Table(
-        show_header=True, header_style="bold magenta", caption_style="magenta"
+        show_header=True,
+        header_style="bold magenta",
     )
-    table.add_column("Number", style="dim", width=12)
-    table.add_column("Tasks")
-    table.add_column("Date", justify="right")
+    table.add_column("Number", style="dim", justify="center", width=12)
+    table.add_column("Tasks", justify="center")
+    table.add_column("Date", justify="center")
     for count, el in enumerate(tasks_lst, start=1):
         table.add_row(f"{count:02}", f'{el["task"]}', f'{el["time_stamp"]}')
-    console.print(table)
+    print_text(table)
+    # console.print(table)
 
 
 def sign_in_screen():
@@ -74,7 +82,8 @@ def log_in_screen():
                 print(f"{res['msg']}")
                 sleep(3)
                 continue
-            u_pwd = input("Input your password: ")
+            print_text("Input your password:", "yellow")
+            u_pwd = hide_user_pass()
             h_pwd = hash_password(u_pwd)
             check = check_user_password(u_login, h_pwd)
             if check["bool"]:
@@ -121,7 +130,7 @@ def welcome_screen(user_name):
                 sleep(2)
                 return False
             else:
-                print_app(
+                print_text(
                     "Wrong answer. Please enter Y or N.", style="magenta"
                 )
                 sleep(3)
@@ -168,6 +177,7 @@ def main():
                 sleep(2)
                 break
             elif answer in "aA":
+                print("Enter task text :")
                 input_task = input()
                 add_task(user_name, input_task)
                 sleep(2)
