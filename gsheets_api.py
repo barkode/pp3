@@ -2,6 +2,7 @@ from time import sleep
 
 import gspread
 from google.oauth2.service_account import Credentials
+from rich import print as rprint
 
 from utils import close_app, gen_task_id, time_stamp
 
@@ -114,12 +115,26 @@ def create_user_tasks_page(name: str):
     user_wsp.append_row(["task", "time_stamp", "id"])
 
 
-def add_task(user_name: str, task: str):
+def add_task(user_name: str, new_task: dict):
     """Add the task to user worksheet page"""
-    time_stmp = time_stamp()
+    task = new_task["task"]
+    time = new_task["time"]
+    gen_id = new_task["id"]
+    user_task = [task, time, gen_id]
+    worksheet_append_row(user_name, user_task)
+
+
+def add_task_page(user_name: str) -> dict:
+    """Print the task page."""
+    rprint(
+        f"[green]Hello, {user_name}. Enter Task text and press Enter.[/green]"
+    )
     gen_id = gen_task_id()
-    user_task = [task, time_stmp, gen_id]
-    return worksheet_append_row(user_name, user_task)
+    time_stmp = time_stamp()
+    rprint(f"[yellow]Create Date : [/yellow] {time_stmp}")
+    rprint("[yellow]Task text : [/yellow]", end=" ")
+    task = input()
+    return {"id": gen_id, "time": time_stmp, "task": task}
 
 
 def check_user_name_entering(user_name: str) -> dict:

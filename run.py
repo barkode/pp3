@@ -1,9 +1,11 @@
 # import from rich library for draw tables
 import pyfiglet
+from rich import print as rprint
 from rich.table import Table
 
 from gsheets_api import (
     add_task,
+    add_task_page,
     add_user_to_base,
     check_edit_enter,
     check_user_name,
@@ -31,7 +33,7 @@ SLEEP_TIME = 2
 
 def print_tasks(tasks_lst: list):
     """Print the table with tasks. Used the Rich library."""
-    print_text(f"Hello, {user_name}. Your table with tasks.")
+    rprint(f"[green]Hello, {user_name}. Your Tasks.[/green]")
     table = Table(
         show_header=True,
         header_style="bold magenta",
@@ -41,7 +43,7 @@ def print_tasks(tasks_lst: list):
     table.add_column("Date", justify="center")
     for count, el in enumerate(tasks_lst, start=1):
         table.add_row(f"{count:02}", f'{el["task"]}', f'{el["time_stamp"]}')
-    print_text(table)
+    rprint(table)
 
 
 def sign_in_screen():
@@ -52,7 +54,7 @@ def sign_in_screen():
     while True:
         clear()
         print_logo(LOGO)
-        print_text("Enter your login:\n", "yellow")
+        print_text("Enter your login:", "yellow")
         u_login = input("Login: ")
         res = check_user_name_entering(u_login)
         if not res["bool"]:
@@ -106,24 +108,22 @@ def welcome_screen(user_name: str) -> dict:
     If a character different from N or Y is entered,
     an error is displayed to the user.
     """
-
     try:
         while True:
             clear()
             print_logo(LOGO)
-            print("Are you registered?")
+            rprint("[bold red]Are you registered?[/bold red]")
             print("")
-            print("Y for existing user ")
-            print("N for a new user")
+            print_text("Y for existing user", "yellow")
+            print_text("N for a new user", "yellow")
             print("")
-            print("Enter Y or N :")
-            is_in_system = input()
-            if is_in_system in "yY":
+            is_register = input("Enter: ")
+            if is_register in "yY" and len(is_register) != 0:
                 return {
                     "bool": True,
                     "msg": "Greetings. Welcome back. Please enter your name.",
                 }
-            elif is_in_system in "nN":
+            elif is_register in "nN" and len(is_register) != 0:
                 return {"bool": False, "msg": "You need to register."}
             else:
                 print_text(
@@ -131,7 +131,10 @@ def welcome_screen(user_name: str) -> dict:
                 )
                 sleep(SLEEP_TIME)
     except KeyboardInterrupt:
-        close_app(f"Bye {user_name}")
+        clear()
+        print_logo(LOGO)
+        print_text(f"Goog bye {user_name}", "orange3")
+        close_app()
 
 
 def main():
@@ -156,7 +159,7 @@ def main():
             all_tasks = show_tasks(user_name)
             clear()
             print_tasks(all_tasks)
-            print("Enter your chose:")
+            print_text("Menu:", "yellow")
             print(
                 "(A)dd task",
                 "Show (T)asks",
@@ -173,9 +176,11 @@ def main():
                 sleep(SLEEP_TIME)
                 break
             elif answer in "aA":
-                print("Enter task text :")
-                input_task = input()
-                add_task(user_name, input_task)
+                clear()
+                # rprint("Enter task text :")
+                # input_task = input("Task text: ")
+                new_task = add_task_page(user_name)
+                add_task(user_name, new_task)
                 sleep(SLEEP_TIME)
             elif answer in "tT":
                 all_tasks = show_tasks(user_name)
@@ -189,8 +194,7 @@ def main():
                 if res["bool"]:
                     edit_task(user_name, res["msg"])
                 else:
-                    print(f"{res['msg']}")
-
+                    rprint(f"{res['msg']}")
                 sleep(SLEEP_TIME)
             elif answer in "dD":
                 tsk_num = input("Enter task ID: ")
@@ -202,7 +206,8 @@ def main():
     except KeyboardInterrupt:
         clear()
         print_logo(LOGO)
-        close_app(f"Bye {user_name}")
+        print_text(f"Goog bye {user_name}", "orange3")
+        close_app()
 
 
 if __name__ == "__main__":

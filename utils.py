@@ -40,9 +40,9 @@ def time_stamp():
     return time.strftime("%Y-%m-%d", time_now)
 
 
-def close_app(msg: str):
+def close_app():
     """Terminates the app with a system call"""
-    sys.exit(msg)
+    sys.exit(0)
 
 
 def print_text(text: str, style="default"):
