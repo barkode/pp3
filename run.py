@@ -15,10 +15,11 @@ from gsheets_api import (
     edit_task,
     show_tasks,
 )
-from utils import clear, close_app, hash_password, sleep
+from utils import clear, close_app, hash_password, print_app, sleep
 
 # Default user name
 user_name = "Dear User"
+# console = Console()
 
 
 def print_tasks(tasks_lst: list):
@@ -99,14 +100,15 @@ def welcome_screen(user_name):
     If a character different from N or Y is entered,
     an error is displayed to the user.
     """
+
     try:
         while True:
             clear()
             print_logo("sTODO")
-            print("Are you registered? (Y)es or (N)o:")
+            print("Are you registered?")
             print("")
-            print("Y - existing user ")
-            print("N - new user")
+            print("Y for existing user ")
+            print("N for a new user")
             print("")
             print("Enter Y or N :")
             is_in_system = input()
@@ -119,7 +121,9 @@ def welcome_screen(user_name):
                 sleep(2)
                 return False
             else:
-                print("Wrong answer. Please enter Y or N.")
+                print_app(
+                    "Wrong answer. Please enter Y or N.", style="magenta"
+                )
                 sleep(3)
     except KeyboardInterrupt:
         close_app(f"Bye {user_name}")

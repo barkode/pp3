@@ -8,6 +8,8 @@ import time
 # import only system from os
 from os import name, system
 
+from rich.console import Console
+
 
 def sleep(seconds: float):
     """Adds delay in seconds"""
@@ -40,3 +42,9 @@ def time_stamp():
 def close_app(msg: str):
     """Terminates the app with a system call"""
     sys.exit(msg)
+
+
+def print_app(text: str, style: str):
+    """Print the styled messages"""
+    console = Console()
+    console.print(text, style=style)
