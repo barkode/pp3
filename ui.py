@@ -126,6 +126,7 @@ def log_in_screen():
             rprint(f"[magenta]{check["msg"]}[/magenta]")
             sleep(SLEEP_TIME)
 
+
 def add_task_page(user_name: str) -> dict:
     """Print the task page."""
     rprint(

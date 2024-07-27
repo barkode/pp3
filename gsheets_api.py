@@ -135,10 +135,13 @@ def check_user_name_entering(user_name: str) -> dict:
     for char in user_name:
         if (
             char
-            not in "aAbBcCdDeEfFgGhHiIgGkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890_"
+            not in """
+            aAbBcCdDeEfFgGhHiIgGkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890_
+            """
         ):
             return {
                 "bool": False,
-                "msg": "The login must contain letters, numbers and an underscore",
+                "msg": """
+                The login must contain letters, numbers and an underscore""",
             }
     return {"bool": True, "msg": user_name}
