@@ -9,7 +9,6 @@ import time
 from os import name, system
 
 import maskpass
-from rich.console import Console
 
 
 def sleep(seconds: float):
@@ -43,12 +42,6 @@ def time_stamp():
 def close_app():
     """Terminates the app with a system call"""
     sys.exit(0)
-
-
-def print_text(text: str, style="default"):
-    """Print the styled messages"""
-    console = Console()
-    console.print(text, style=style)
 
 
 def hide_user_pass():

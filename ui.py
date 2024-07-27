@@ -12,7 +12,6 @@ from utils import (
     close_app,
     hash_password,
     hide_user_pass,
-    print_text,
     sleep,
 )
 
@@ -36,8 +35,8 @@ def welcome_screen(user_name: str) -> dict:
             print_logo(LOGO)
             rprint("[bold red]Are you registered?[/bold red]")
             print("")
-            print_text("Y for existing user", "yellow")
-            print_text("N for a new user", "yellow")
+            rprint("[yellow]Y for existing user[/yellow]")
+            rprint("[yellow]N for a new user[/yellow]")
             print("")
             is_register = input("Enter: ")
             if is_register in "yY" and len(is_register) != 0:
@@ -48,14 +47,12 @@ def welcome_screen(user_name: str) -> dict:
             elif is_register in "nN" and len(is_register) != 0:
                 return {"bool": False, "msg": "You need to register."}
             else:
-                print_text(
-                    "Wrong answer. Please enter Y or N.", style="magenta"
-                )
+                rprint("[magenta]Wrong answer. Please enter Y or N.[magenta]")
                 sleep(SLEEP_TIME)
     except KeyboardInterrupt:
         clear()
         print_logo(LOGO)
-        print_text(f"Goog bye {user_name}", "orange3")
+        rprint(f"[orange3]Goog bye {user_name}[/orange3]")
         close_app()
 
 
@@ -82,16 +79,16 @@ def sign_in_screen():
     while True:
         clear()
         print_logo(LOGO)
-        print_text("Enter your login:", "yellow")
+        rprint("[yellow]Enter your login: [/yellow]")
         u_login = input("Login: ")
         res = check_user_name_entering(u_login)
         if not res["bool"]:
-            print_text(f"{res['msg']}", "magenta")
+            rprint(f"[magenta]{res['msg']}[/magenta]")
             sleep(SLEEP_TIME)
             continue
         res = check_user_name(res["msg"])
         if not res["bool"]:
-            print_text(f"{res['msg']}", "magenta")
+            rprint(f"[magenta]{res['msg']}[/magenta]")
             sleep(SLEEP_TIME)
             continue
         return res["msg"]
@@ -110,19 +107,19 @@ def log_in_screen():
     while True:
         clear()
         print_logo(LOGO)
-        print_text("Input your login.", "yellow")
+        rprint("[yellow]Input your login.[/yellow]")
         u_login = input("Login: ")
         res = check_user_name_entering(u_login)
         if not res["bool"]:
-            print(f"{res['msg']}")
+            rprint(f"[magenta]{res['msg']}[/magenta]")
             sleep(SLEEP_TIME)
             continue
-        print_text("Input your password.", "yellow")
+        rprint("[yellow]Please input your password.[yellow]")
         u_pwd = hide_user_pass()
         h_pwd = hash_password(u_pwd)
         check = check_user_password(u_login, h_pwd)
         if check["bool"]:
             return u_login
         else:
-            print_text(check["msg"], "magenta")
+            rprint(f"[magenta]{check["msg"]}[/magenta]")
             sleep(SLEEP_TIME)

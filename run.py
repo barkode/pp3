@@ -25,7 +25,6 @@ from utils import (
     clear,
     close_app,
     hash_password,
-    print_text,
     sleep,
 )
 
@@ -54,16 +53,16 @@ def main():
             all_tasks = show_tasks(user_name)
             clear()
             print_tasks(all_tasks)
-            print_text("Menu:", "yellow")
-            print(
-                "(A)dd task",
-                "Show (T)asks",
-                "(E)dit task",
-                "(D)elete task",
-                "(Q)uit",
+            rprint("[yellow]Menu: [/yellow]")
+            rprint(
+                "[cyan]([yellow]A[/yellow])dd task[/cyan]",
+                "[cyan]Show ([yellow]T[/yellow])asks[/cyan]",
+                "[cyan]([yellow]E[/yellow])dit task[/cyan]",
+                "[cyan]([yellow]D[/yellow])elete task[/cyan]",
+                "[cyan]([yellow]Q[/yellow])uit[/cyan]",
                 sep=" | ",
             )
-            answer = input()
+            answer = input("Enter the letter: ")
             sleep(SLEEP_TIME)
             if answer in "qQ":
                 clear()
@@ -90,16 +89,20 @@ def main():
                     rprint(f"[magenta]{res['msg']}[/magenta]")
                 sleep(SLEEP_TIME)
             elif answer in "dD":
-                tsk_num = input("Enter task ID: ")
-                delete_task(user_name, tsk_num)
+                rprint("[yellow]Enter task number: [/yellow]", end=" ")
+                res = check_edit_enter(user_name, tsk_num)
+                if res["bool"]:
+                    delete_task(user_name, res["msg"])
+                else:
+                    rprint(f"[magenta]{res['msg']}[/magenta]")
                 sleep(SLEEP_TIME)
             else:
-                print("Enter correct letter")
+                rprint("Please, enter correct letter")
                 sleep(SLEEP_TIME)
     except KeyboardInterrupt:
         clear()
         print_logo(LOGO)
-        print_text(f"Goog bye {user_name}", "orange3")
+        rprint(f"[orange3]Goog bye {user_name}[/orange3]")
         close_app()
 
 
