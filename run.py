@@ -4,7 +4,6 @@ from rich import print as rprint
 
 from gsheets_api import (
     add_task,
-    add_task_page,
     add_user_to_base,
     check_edit_enter,
     create_user_tasks_page,
@@ -15,6 +14,7 @@ from gsheets_api import (
 from ui import (
     LOGO,
     SLEEP_TIME,
+    add_task_page,
     log_in_screen,
     print_logo,
     print_tasks,
@@ -52,7 +52,7 @@ def main():
         while True:
             all_tasks = show_tasks(user_name)
             clear()
-            print_tasks(all_tasks)
+            print_tasks(all_tasks, user_name)
             rprint("[yellow]Menu: [/yellow]")
             rprint(
                 "[cyan]([yellow]A[/yellow])dd task[/cyan]",
@@ -64,24 +64,28 @@ def main():
             )
             answer = input("Enter the letter: ")
             sleep(SLEEP_TIME)
+
             if answer in "qQ":
                 clear()
                 print(f"Bye {user_name}")
                 sleep(SLEEP_TIME)
-                break
+                close_app()
             elif answer in "aA":
                 clear()
+                print_tasks(all_tasks, user_name)
                 new_task = add_task_page(user_name)
                 add_task(user_name, new_task)
                 sleep(SLEEP_TIME)
             elif answer in "tT":
-                all_tasks = show_tasks(user_name)
+
                 clear()
-                print_tasks(all_tasks)
                 sleep(SLEEP_TIME)
             elif answer in "eE":
-                rprint("[yellow]Enter task number: [/yellow]", end=" ")
-                tsk_num = input()
+                all_tasks = show_tasks(user_name)
+                clear()
+                print_tasks(all_tasks, user_name)
+                rprint("[yellow]Now you can edit your task.[/yellow]")
+                tsk_num = input("Enter task number: ")
                 res = check_edit_enter(user_name, tsk_num)
                 if res["bool"]:
                     edit_task(user_name, res["msg"])
@@ -89,7 +93,10 @@ def main():
                     rprint(f"[magenta]{res['msg']}[/magenta]")
                 sleep(SLEEP_TIME)
             elif answer in "dD":
-                rprint("[yellow]Enter task number: [/yellow]", end=" ")
+                clear()
+                print_tasks(all_tasks, user_name)
+                rprint("[yellow]Now you can delete your task.[/yellow]")
+                tsk_num = input("Enter task number: ")
                 res = check_edit_enter(user_name, tsk_num)
                 if res["bool"]:
                     delete_task(user_name, res["msg"])
@@ -97,7 +104,7 @@ def main():
                     rprint(f"[magenta]{res['msg']}[/magenta]")
                 sleep(SLEEP_TIME)
             else:
-                rprint("Please, enter correct letter")
+                rprint("[magenta]Please, enter correct letter[/magenta]")
                 sleep(SLEEP_TIME)
     except KeyboardInterrupt:
         clear()

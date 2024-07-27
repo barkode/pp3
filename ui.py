@@ -10,9 +10,11 @@ from gsheets_api import (
 from utils import (
     clear,
     close_app,
+    gen_task_id,
     hash_password,
     hide_user_pass,
     sleep,
+    time_stamp,
 )
 
 # Default parameters
@@ -56,7 +58,7 @@ def welcome_screen(user_name: str) -> dict:
         close_app()
 
 
-def print_tasks(tasks_lst: list):
+def print_tasks(tasks_lst: list, user_name: str):
     """Print the table with tasks. Used the Rich library."""
     rprint(f"[green]Hello, {user_name}. Your Tasks.[/green]")
     table = Table(
@@ -123,3 +125,13 @@ def log_in_screen():
         else:
             rprint(f"[magenta]{check["msg"]}[/magenta]")
             sleep(SLEEP_TIME)
+
+def add_task_page(user_name: str) -> dict:
+    """Print the task page."""
+    rprint(
+        f"[yellow]{user_name}. Enter Task text and press Enter.[/yellow]"
+    )
+    task = input("Enter task: ")
+    gen_id = gen_task_id()
+    time_stmp = time_stamp()
+    return {"id": gen_id, "time": time_stmp, "task": task}

@@ -2,9 +2,6 @@ from time import sleep
 
 import gspread
 from google.oauth2.service_account import Credentials
-from rich import print as rprint
-
-from utils import close_app, gen_task_id, time_stamp
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -18,6 +15,8 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 
 # Open used google sheets document
 SHEET = GSPREAD_CLIENT.open("stodo")
+
+SLEEP_TIME = 2
 
 
 def update_cell(user_name: str, row: int, col: int, data: str):
@@ -36,31 +35,27 @@ def delete_task(user_name: str, task_num: str):
 def check_edit_enter(user_name: str, task_num: str) -> dict:
     """Check the task number entered by the user"""
     tasks_quantity = len(show_tasks(user_name))
-    try:
-        if not task_num.isnumeric():
-            return {"bool": False, "msg": "Please enter only number"}
 
-        if int(task_num) > tasks_quantity:
-            return {
-                "bool": False,
-                "msg": f"The number should not be larger {tasks_quantity}",
-            }
-        return {"bool": True, "msg": task_num}
-    except KeyboardInterrupt:
-        close_app(f"Bye {user_name}")
+    if not task_num.isnumeric():
+        return {"bool": False, "msg": "Please enter only number"}
+
+    if int(task_num) > tasks_quantity:
+        return {
+            "bool": False,
+            "msg": f"The number should not be larger {tasks_quantity}",
+        }
+    return {"bool": True, "msg": task_num}
 
 
 def edit_task(user_name: str, task_num: str):
     """Edit the task function"""
-    try:
-        ws = SHEET.worksheet(user_name)
-        row_data = ws.row_values(int(task_num) + 1)
-        cell = ws.find(row_data[2])
-        changed_data = input()
-        update_cell(user_name, cell.row, 1, changed_data)
-        sleep(2)
-    except KeyboardInterrupt:
-        close_app(f"Bye {user_name}")
+
+    ws = SHEET.worksheet(user_name)
+    row_data = ws.row_values(int(task_num) + 1)
+    cell = ws.find(row_data[2])
+    changed_data = input("Enter your new task text: ")
+    update_cell(user_name, cell.row, 1, changed_data)
+    sleep(SLEEP_TIME)
 
 
 def show_tasks(user_name: str) -> list:
@@ -92,7 +87,7 @@ def check_user_name(user_name: str) -> dict:
     if user_name in users:
         return {
             "bool": False,
-            "msg": "Sorry this name exist in base. Try other name.\n",
+            "msg": "Sorry this name exist in base. Try other name.",
         }
     return {"bool": True, "msg": user_name}
 
@@ -122,19 +117,6 @@ def add_task(user_name: str, new_task: dict):
     gen_id = new_task["id"]
     user_task = [task, time, gen_id]
     worksheet_append_row(user_name, user_task)
-
-
-def add_task_page(user_name: str) -> dict:
-    """Print the task page."""
-    rprint(
-        f"[green]Hello, {user_name}. Enter Task text and press Enter.[/green]"
-    )
-    gen_id = gen_task_id()
-    time_stmp = time_stamp()
-    rprint(f"[yellow]Create Date : [/yellow] {time_stmp}")
-    rprint("[yellow]Task text : [/yellow]", end=" ")
-    task = input()
-    return {"id": gen_id, "time": time_stmp, "task": task}
 
 
 def check_user_name_entering(user_name: str) -> dict:
