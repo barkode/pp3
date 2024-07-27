@@ -52,5 +52,5 @@ def print_text(text: str, style="default"):
 
 
 def hide_user_pass():
-    pwd = maskpass.askpass(prompt="Password:", mask="#")
+    pwd = maskpass.askpass(prompt="Password: ", mask="#")
     return pwd

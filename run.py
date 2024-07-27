@@ -1,6 +1,5 @@
 # import from rich library for draw tables
 import pyfiglet
-from rich.console import Console
 from rich.table import Table
 
 from gsheets_api import (
@@ -26,12 +25,13 @@ from utils import (
 
 # Default user name
 user_name = "Dear User"
+LOGO = "stodo"
+SLEEP_TIME = 2
 
 
 def print_tasks(tasks_lst: list):
     """Print the table with tasks. Used the Rich library."""
-    console = Console()
-    console.print(f"Hello, {user_name}. Your table with tasks.")
+    print_text(f"Hello, {user_name}. Your table with tasks.")
     table = Table(
         show_header=True,
         header_style="bold magenta",
@@ -42,7 +42,6 @@ def print_tasks(tasks_lst: list):
     for count, el in enumerate(tasks_lst, start=1):
         table.add_row(f"{count:02}", f'{el["task"]}', f'{el["time_stamp"]}')
     print_text(table)
-    # console.print(table)
 
 
 def sign_in_screen():
@@ -50,49 +49,47 @@ def sign_in_screen():
     Shows a screen inviting the user to register with the system.
     """
     clear()
-    try:
-        while True:
-            clear()
-            print("Enter your reg name:\n")
-            u_login = input()
-            res = check_user_name_entering(u_login)
-            if not res["bool"]:
-                print(f"{res['msg']}")
-                sleep(3)
-                continue
-            res = check_user_name(res["msg"])
-            if not res["bool"]:
-                print(f"{res['msg']}")
-                sleep(3)
-                continue
-            return res["msg"]
-    except KeyboardInterrupt:
-        close_app(f"Bye {user_name}")
+    while True:
+        clear()
+        print_logo(LOGO)
+        print_text("Enter your login:\n", "yellow")
+        u_login = input("Login: ")
+        res = check_user_name_entering(u_login)
+        if not res["bool"]:
+            print_text(f"{res['msg']}", "magenta")
+            sleep(SLEEP_TIME)
+            continue
+        res = check_user_name(res["msg"])
+        if not res["bool"]:
+            print_text(f"{res['msg']}", "magenta")
+            sleep(SLEEP_TIME)
+            continue
+        return res["msg"]
 
 
 def log_in_screen():
     """Shows the user login screen.
     Checks if the user and password exist in the base.
     """
-    try:
-        while True:
-            u_login = input("Input your login: ")
-            res = check_user_name_entering(u_login)
-            if not res["bool"]:
-                print(f"{res['msg']}")
-                sleep(3)
-                continue
-            print_text("Input your password:", "yellow")
-            u_pwd = hide_user_pass()
-            h_pwd = hash_password(u_pwd)
-            check = check_user_password(u_login, h_pwd)
-            if check["bool"]:
-                return u_login
-            else:
-                print(check["msg"])
-                sleep(3)
-    except KeyboardInterrupt:
-        close_app(f"Bye {user_name}")
+    while True:
+        clear()
+        print_logo(LOGO)
+        print_text("Input your login.", "yellow")
+        u_login = input("Login: ")
+        res = check_user_name_entering(u_login)
+        if not res["bool"]:
+            print(f"{res['msg']}")
+            sleep(SLEEP_TIME)
+            continue
+        print_text("Input your password.", "yellow")
+        u_pwd = hide_user_pass()
+        h_pwd = hash_password(u_pwd)
+        check = check_user_password(u_login, h_pwd)
+        if check["bool"]:
+            return u_login
+        else:
+            print_text(check["msg"], "magenta")
+            sleep(SLEEP_TIME)
 
 
 def print_logo(text: str):
@@ -101,7 +98,7 @@ def print_logo(text: str):
     print(ascii_art)
 
 
-def welcome_screen(user_name):
+def welcome_screen(user_name: str) -> dict:
     """
     The function checks whether the user is in the system.
     If the user is logged in, it returns True.
@@ -113,7 +110,7 @@ def welcome_screen(user_name):
     try:
         while True:
             clear()
-            print_logo("sTODO")
+            print_logo(LOGO)
             print("Are you registered?")
             print("")
             print("Y for existing user ")
@@ -122,18 +119,17 @@ def welcome_screen(user_name):
             print("Enter Y or N :")
             is_in_system = input()
             if is_in_system in "yY":
-                print("Greetings. Welcome back. Please enter your name.")
-                sleep(2)
-                return True
+                return {
+                    "bool": True,
+                    "msg": "Greetings. Welcome back. Please enter your name.",
+                }
             elif is_in_system in "nN":
-                print("You need to register.")
-                sleep(2)
-                return False
+                return {"bool": False, "msg": "You need to register."}
             else:
                 print_text(
                     "Wrong answer. Please enter Y or N.", style="magenta"
                 )
-                sleep(3)
+                sleep(SLEEP_TIME)
     except KeyboardInterrupt:
         close_app(f"Bye {user_name}")
 
@@ -144,18 +140,18 @@ def main():
     """
     clear()
     global user_name
-    user_in_system = welcome_screen(user_name)
-
-    if user_in_system:
-        user_name = log_in_screen()
-    else:
-        user_name = sign_in_screen()
-        user_pw = input("Enter password")
-        hashed_pw = hash_password(user_pw)
-        add_user_to_base(user_name, hashed_pw)
-        create_user_tasks_page(user_name)
-
+    is_register = welcome_screen(user_name)
     try:
+        if is_register["bool"]:
+            user_name = log_in_screen()
+        else:
+            user_name = sign_in_screen()
+            print_text("Enter your password: ", "yellow")
+            user_pw = input("Password: ")
+            hashed_pw = hash_password(user_pw)
+            add_user_to_base(user_name, hashed_pw)
+            create_user_tasks_page(user_name)
+
         while True:
             all_tasks = show_tasks(user_name)
             clear()
@@ -170,22 +166,22 @@ def main():
                 sep=" | ",
             )
             answer = input()
-            sleep(1)
+            sleep(SLEEP_TIME)
             if answer in "qQ":
                 clear()
                 print(f"Bye {user_name}")
-                sleep(2)
+                sleep(SLEEP_TIME)
                 break
             elif answer in "aA":
                 print("Enter task text :")
                 input_task = input()
                 add_task(user_name, input_task)
-                sleep(2)
+                sleep(SLEEP_TIME)
             elif answer in "tT":
                 all_tasks = show_tasks(user_name)
                 clear()
                 print_tasks(all_tasks)
-                sleep(2)
+                sleep(SLEEP_TIME)
             elif answer in "eE":
                 tsk_num = input("Enter number of task to edit:")
                 res = check_edit_enter(user_name, tsk_num)
@@ -195,15 +191,17 @@ def main():
                 else:
                     print(f"{res['msg']}")
 
-                sleep(2)
+                sleep(SLEEP_TIME)
             elif answer in "dD":
                 tsk_num = input("Enter task ID: ")
                 delete_task(user_name, tsk_num)
-                sleep(2)
+                sleep(SLEEP_TIME)
             else:
                 print("Enter correct letter")
-                sleep(2)
+                sleep(SLEEP_TIME)
     except KeyboardInterrupt:
+        clear()
+        print_logo(LOGO)
         close_app(f"Bye {user_name}")
 
 
