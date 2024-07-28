@@ -65,7 +65,8 @@ def main():
 
             if answer in "qQ":
                 clear()
-                print(f"Bye {user_name}")
+                print_logo(LOGO)
+                rprint(f"[orange3]Bye {user_name}. See you later.[/orange3]")
                 sleep(SLEEP_TIME)
                 close_app()
             elif answer in "aA":
