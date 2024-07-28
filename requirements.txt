@@ -8,12 +8,14 @@ google-auth-oauthlib==1.2.1
 gspread==6.1.2
 idna==3.7
 markdown-it-py==3.0.0
+maskpass==0.3.7
 mdurl==0.1.2
 oauthlib==3.2.2
 pyasn1==0.6.0
 pyasn1_modules==0.4.0
 pyfiglet==1.0.2
 Pygments==2.18.0
+pynput==1.7.7
 requests==2.32.3
 requests-oauthlib==2.0.0
 rich==13.7.1
