@@ -3,7 +3,7 @@ from rich import print as rprint
 from rich.table import Table
 
 #Default parameters
-from config import LOGO, SLEEP_TIME, USER_NAME
+from config import DESCRIPTION, LOGO, SLEEP_TIME, USER_NAME
 from gsheets_api import (
     check_user_name,
     check_user_name_entering,
@@ -35,6 +35,7 @@ def welcome_screen(user_name: str) -> dict:
         while True:
             clear()
             print_logo(LOGO)
+            rprint(f"[cyan]{DESCRIPTION}[/cyan]\n")
             rprint("[bold red]Are you registered?[/bold red]")
             print("")
             rprint("[yellow]Y for existing user[/yellow]")
@@ -99,7 +100,7 @@ def sign_in_screen():
 def print_logo(text: str):
     """Print the ascii app logo"""
     ascii_art = pyfiglet.figlet_format(text, font="banner3-D")
-    print(ascii_art)
+    rprint(f"[green]{ascii_art}[/green]")
 
 
 def log_in_screen():
