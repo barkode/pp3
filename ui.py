@@ -50,7 +50,7 @@ def welcome_screen(user_name: str) -> dict:
             elif is_register in "nN" and len(is_register) != 0:
                 return {"bool": False, "msg": "You need to register."}
             else:
-                rprint("[magenta]Wrong answer. Please enter Y or N.[magenta]")
+                rprint("[red]Wrong answer. Please enter Y or N.[red]")
                 sleep(SLEEP_TIME)
     except KeyboardInterrupt:
         clear()
@@ -86,12 +86,12 @@ def sign_in_screen():
         u_login = input("Login: ")
         res = check_user_name_entering(u_login)
         if not res["bool"]:
-            rprint(f"[magenta]{res['msg']}[/magenta]")
+            rprint(f"[red]{res['msg']}[/red]")
             sleep(SLEEP_TIME)
             continue
         res = check_user_name(res["msg"])
         if not res["bool"]:
-            rprint(f"[magenta]{res['msg']}[/magenta]")
+            rprint(f"[red]{res['msg']}[/red]")
             sleep(SLEEP_TIME)
             continue
         return res["msg"]
@@ -114,7 +114,7 @@ def log_in_screen():
         u_login = input("Login: ")
         res = check_user_name_entering(u_login)
         if not res["bool"]:
-            rprint(f"[magenta]{res['msg']}[/magenta]")
+            rprint(f"[red]{res['msg']}[/red]")
             sleep(SLEEP_TIME)
             continue
         rprint("[yellow]Please input your password.[yellow]")
@@ -124,7 +124,7 @@ def log_in_screen():
         if check["bool"]:
             return u_login
         else:
-            rprint(f"[magenta]{check["msg"]}[/magenta]")
+            rprint(f"[red]{check["msg"]}[/red]")
             sleep(SLEEP_TIME)
 
 

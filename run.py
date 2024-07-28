@@ -85,7 +85,7 @@ def main():
                 if res["bool"]:
                     edit_task(user_name, res["msg"])
                 else:
-                    rprint(f"[magenta]{res['msg']}[/magenta]")
+                    rprint(f"[red]{res['msg']}[/red]")
                 sleep(SLEEP_TIME)
             elif answer in "dD":
                 clear()
@@ -96,10 +96,10 @@ def main():
                 if res["bool"]:
                     delete_task(user_name, res["msg"])
                 else:
-                    rprint(f"[magenta]{res['msg']}[/magenta]")
+                    rprint(f"[red]{res['msg']}[/red]")
                 sleep(SLEEP_TIME)
             else:
-                rprint("[magenta]Please, enter correct letter[/magenta]")
+                rprint("[red]Please, enter correct letter[/red]")
                 sleep(SLEEP_TIME)
     except KeyboardInterrupt:
         clear()

@@ -110,9 +110,21 @@ tasks.
 
 ## Design
 
-The design of the game is made in a classic style. The site is built on the
-principles of simplicity and functionality. Time was also devoted to creating a
-concise design and ease of use of the game.
+A rich library was used to style messages. This improves the user experience and
+allows the user to pay attention to important messages. The following color
+scheme was chosen:
+
+- Green: to display logo
+
+  ![green-color](./assets/docs/logo_color_scheme.png)
+
+- Cyan: to display app description and user menu
+
+  ![cyan-color](./assets/docs/app_description_scheme.png)
+
+- Yellow: to display questions and answer options
+
+  ![yellow-color](./assets/docs/question_and_options_scheme.png)
 
 [Back to top](#contents)
 
