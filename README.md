@@ -114,9 +114,7 @@ The design of the game is made in a classic style. The site is built on the
 principles of simplicity and functionality. Time was also devoted to creating a
 concise design and ease of use of the game.
 
-<<<<<<< HEAD [Back to top](#contents) ======= [Back to top](#content)
-
-> > > > > > > 55783501a374f5065fbc0006809cc57f1af67dd6
+[Back to top](#contents)
 
 ### Website structure
 
@@ -143,9 +141,7 @@ The site consists of 2 pages.
 - The second page is a 404 error page. This page is displayed if the user wants
   to open a page that does not exist.
 
-<<<<<<< HEAD [Back to top](#contents) ======= [Back to top](#content)
-
-> > > > > > > 55783501a374f5065fbc0006809cc57f1af67dd6
+[Back to top](#contents)
 
 ### Wireframes
 
@@ -157,7 +153,7 @@ Balsamiq was used to create the wireframes during the design process
 
 ![Balsamiq rules screen](./assets/docs/Rules%20screen.png)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Color Scheme
 
@@ -166,7 +162,7 @@ Balsamiq was used to create the wireframes during the design process
 I was inspired by
 [uzaymacar github](https://github.com/uzaymacar/blackjack-with-gui/blob/master/README.md)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Typography
 
@@ -181,7 +177,7 @@ This font was used for all text across the website.
 ![BioRhyme font](./assets/docs/fonts.png)
 ![BioRhyme font](./assets/docs/fonts-1.png)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Imagery
 
@@ -194,7 +190,7 @@ Icons for the project were found on [FontAwesome](https://fontawesome.com/) and
 
 All image sizes were edited using [squoosh](https://squoosh.app/).
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Accessibility
 
@@ -205,7 +201,7 @@ as possible.
 - Using descriptive alt attributes on images on the site.
 - Ensuring that there is a sufficient color contrast throughout the site.
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ## Technologies Used
 
@@ -218,7 +214,7 @@ as possible.
   the site's interactivity. The logic of the game is also written in JavaScript.
 - VSCOde - used as a main IDE.
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Frameworks, Libraries & Programs Used
 
@@ -254,7 +250,7 @@ as possible.
 
   Used Visual Studio Code as a main IDE.
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ## Features
 
@@ -268,7 +264,7 @@ An icon suitable for the subject was found on the
 [FlatIcon](https://www.flaticon.com/free-icon/numerology_9288700?term=numerology&page=1&position=4&origin=search&related_id=9288700)
 resource.
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Welcome Screen
 
@@ -285,7 +281,7 @@ Welcome screen on mobile
 
 ![Tap&Play Welcome screen image mobile](./assets/docs/welcome-screen-mobi.png)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Main Page
 
@@ -299,7 +295,7 @@ Games look good on both desktop and mobile devices.
 
 ![Tap&Play Main Page image](./assets/docs/main-page-mobi.png)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Logo
 
@@ -311,7 +307,7 @@ The logo was created in Figma. The images was downloaded from
 The image was chenged in [Figma App](https://www.figma.com/) The logo has a
 transparent background.
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Statistic Module
 
@@ -326,7 +322,7 @@ adaptive layout.
 
 ![Statistic module image](./assets/docs/statistic-mobi.png)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Clock Module
 
@@ -342,7 +338,7 @@ widths in mind.
 
 ![Clock module image](./assets/docs/statistic-mobi.png)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Buttons Module
 
@@ -365,7 +361,7 @@ Button start inactive
 
 ![Buttons module image](./assets/docs/buttons-2-deal-cards.png)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Local Storage
 
@@ -375,7 +371,7 @@ that the user is not shown the welcome screen
 
 ![Clear all data module image](./assets/docs/read-rules.png)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Clear All Data Module
 
@@ -385,7 +381,7 @@ name will be deleted.
 
 ![Clear all data module image](./assets/docs/read-rules.png)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Footer
 
@@ -400,7 +396,7 @@ The link in the footer leads to the game code page.
 
 ![Tap&Play Footer image](./assets/docs/footer-mobi.png)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Error page
 
@@ -409,7 +405,7 @@ The link in the footer leads to the game code page.
 An error page notifies the user of an error. Also, the user can return to the
 main page. The page is also made taking into account different device widths.
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ## Testing
 
@@ -572,7 +568,7 @@ screen.
 
 Result: **Pass**
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### HTML Validation
 
@@ -581,7 +577,7 @@ Result: **Pass**
 All informational messages refer to the trailing slash at the end of empty
 elements. This is a feature of the Prettier expansion.
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### CSS Validation
 
@@ -590,7 +586,7 @@ elements. This is a feature of the Prettier expansion.
 The document has been verified. No errors were found. Non-critical comments were
 found.
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### JS Validation
 
@@ -610,7 +606,7 @@ JSHint validator. Utils.js
 
 JSHint validator. GameCounts.js
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Lighthouse Performance Tests
 
@@ -620,7 +616,7 @@ JSHint validator. GameCounts.js
 
 ![Index Page Lighthouse image](./assets/docs/lh-desk-entered.png)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 #### Mobile
 
@@ -628,7 +624,7 @@ JSHint validator. GameCounts.js
 
 ![Index Page Lighthouse](./assets/docs/lh-mobi-entered.png)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Manual Testing
 
@@ -671,7 +667,7 @@ JSHint validator. GameCounts.js
 
 ![Form button not active image](./assets/docs/form-5-not-enter-name.png)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Further Testing
 
@@ -682,7 +678,7 @@ Testing on more devices to find optimal values.
 
 Using more devices to determine optimal color shades.
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ## Bugs
 
@@ -695,7 +691,7 @@ Using more devices to determine optimal color shades.
 - Need to fix performance on mobile devices.
 - Not smooth card animation
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ## Deployment
 
@@ -714,7 +710,7 @@ Using more devices to determine optimal color shades.
   - live link for the page can be found here
     [Bake's JOY](https://barkode.github.io/bake-with-joy/)
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Forking the GitHub Repository
 
@@ -726,7 +722,7 @@ Using more devices to determine optimal color shades.
   Button on the menu, locate the "Fork" Button.
 - You should now have a copy of the original repository in your GitHub account.
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Making a Local Clone
 
@@ -740,7 +736,7 @@ Using more devices to determine optimal color shades.
   - $ git clone <https://github.com/YOUR-USERNAME/YOUR-REPOSITORY>
 - Press Enter. Your local clone will be created.
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ## Future improvements
 
@@ -750,7 +746,7 @@ Using more devices to determine optimal color shades.
 - Add a new functionality with split button.
 - Add the ability to make bets.
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ## Credits
 
@@ -814,7 +810,7 @@ Using more devices to determine optimal color shades.
 
   As a good helper in finding information
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Media
 
@@ -843,7 +839,7 @@ Using more devices to determine optimal color shades.
 
   Site favicon
 
-[Back to top](#content)
+[Back to top](#contents)
 
 ### Acknowledgment
 
@@ -857,4 +853,4 @@ Using more devices to determine optimal color shades.
   [Kerry College](https://kerrycollege.ie/) for giving me the opportunity to
   study and participate in this project.
 
-[Back to top](#content)
+[Back to top](#contents)
