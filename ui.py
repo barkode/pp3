@@ -2,6 +2,8 @@ import pyfiglet
 from rich import print as rprint
 from rich.table import Table
 
+#Default parameters
+from config import LOGO, SLEEP_TIME, USER_NAME
 from gsheets_api import (
     check_user_name,
     check_user_name_entering,
@@ -17,10 +19,8 @@ from utils import (
     time_stamp,
 )
 
-# Default parameters
-user_name = "Dear User"
-LOGO = "stodo"
-SLEEP_TIME = 2
+user_name = USER_NAME
+
 
 
 def welcome_screen(user_name: str) -> dict:

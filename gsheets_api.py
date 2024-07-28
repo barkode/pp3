@@ -3,6 +3,8 @@ from time import sleep
 import gspread
 from google.oauth2.service_account import Credentials
 
+from config import SLEEP_TIME
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -15,8 +17,6 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 
 # Open used google sheets document
 SHEET = GSPREAD_CLIENT.open("stodo")
-
-SLEEP_TIME = 2
 
 
 def update_cell(user_name: str, row: int, col: int, data: str):

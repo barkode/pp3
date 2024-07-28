@@ -2,6 +2,7 @@
 
 from rich import print as rprint
 
+from config import LOGO, SLEEP_TIME, USER_NAME
 from gsheets_api import (
     add_task,
     add_user_to_base,
@@ -12,8 +13,6 @@ from gsheets_api import (
     show_tasks,
 )
 from ui import (
-    LOGO,
-    SLEEP_TIME,
     add_task_page,
     log_in_screen,
     print_logo,
@@ -28,7 +27,7 @@ from utils import (
     sleep,
 )
 
-user_name = "Dear User"
+user_name = USER_NAME
 
 
 def main():
@@ -56,7 +55,7 @@ def main():
             rprint("[yellow]Menu: [/yellow]")
             rprint(
                 "[cyan]([yellow]A[/yellow])dd task[/cyan]",
-                "[cyan]Show ([yellow]T[/yellow])asks[/cyan]",
+                # "[cyan]Show ([yellow]T[/yellow])asks[/cyan]",
                 "[cyan]([yellow]E[/yellow])dit task[/cyan]",
                 "[cyan]([yellow]D[/yellow])elete task[/cyan]",
                 "[cyan]([yellow]Q[/yellow])uit[/cyan]",
@@ -76,10 +75,9 @@ def main():
                 new_task = add_task_page(user_name)
                 add_task(user_name, new_task)
                 sleep(SLEEP_TIME)
-            elif answer in "tT":
-
-                clear()
-                sleep(SLEEP_TIME)
+            # elif answer in "tT":
+            #     clear()
+            #     sleep(SLEEP_TIME)
             elif answer in "eE":
                 all_tasks = show_tasks(user_name)
                 clear()
