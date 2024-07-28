@@ -36,7 +36,7 @@ def welcome_screen(user_name: str) -> dict:
             clear()
             print_logo(LOGO)
             rprint(f"[cyan]{DESCRIPTION}[/cyan]\n")
-            rprint("[bold red]Are you registered?[/bold red]")
+            rprint("[yellow]Are you registered?[/yellow]")
             print("")
             rprint("[yellow]Y for existing user[/yellow]")
             rprint("[yellow]N for a new user[/yellow]")
