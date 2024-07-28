@@ -122,9 +122,31 @@ scheme was chosen:
 
   ![cyan-color](./assets/docs/app_description_scheme.png)
 
+  ![cyan-color](./assets/docs/user_menu_scheme.png)
+
 - Yellow: to display questions and answer options
 
   ![yellow-color](./assets/docs/question_and_options_scheme.png)
+
+  ![cyan-color](./assets/docs/user_menu_scheme.png)
+
+- Orange: to display app terminate message
+
+  ![orange-color](./assets/docs/bye_msg_scheme.png)
+
+- Red: to display error messages
+
+  ![red-color](./assets/docs/error_msg_scheme.png)
+
+- Magenta: to display table header
+
+  ![magenta-color](./assets/docs/table_header_scheme.png)
+
+- Default terminal color: to display input messages, user inputs and table data
+
+  ![default-color](./assets/docs/def_table_scheme.png)
+
+  ![default-color](./assets/docs/def_input_scheme.png)
 
 [Back to top](#contents)
 
