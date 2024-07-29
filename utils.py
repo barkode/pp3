@@ -45,5 +45,6 @@ def close_app():
 
 
 def hide_user_pass():
+    """Hide user password when"""
     pwd = maskpass.askpass(prompt="Password: ", mask="#")
     return pwd

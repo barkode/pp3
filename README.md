@@ -24,6 +24,7 @@ You can [visit our site here.](https://stodo-766c69891344.herokuapp.com/)
 - [Features](#features)
   - [Existing Features](#existing-features)
     - [Landing Page](#landing-page)
+    - [New User](#new-user)
   - [Future Implementations](#future-implementations)
 - [Technologies Used](#technologies-used)
   - [Languages Used](#languages-used)
@@ -160,6 +161,24 @@ scheme was chosen:
 ![Landing page input number](./assets/docs/lp3.png)
 
 </details>
+
+[Back to top](#contents)
+
+### New User
+
+- If N or n is selected the page will clear and the user will see a welcome
+  message.
+
+![new user page 1](./assets/docs/new_user_page1.png)
+
+- They will be asked to enter their login and shown the format in which it
+  should be. The login does not match the login of an existing user. If such a
+  login exists, an error message will be displayed.
+
+![new user page 2](./assets/docs/new_user_page2.png)
+
+- The user will see an error message if the login does not consist of letters or
+  underscores.
 
 [Back to top](#contents)
 

@@ -93,7 +93,7 @@ def check_user_name(user_name: str) -> dict:
 
 
 def check_user_password(user_name: str, user_password: str) -> dict:
-    """"""
+    """Check if user enter correct password"""
     ws = SHEET.worksheet("users")
     lst = ws.get_all_values()
     for el in lst:
@@ -133,15 +133,13 @@ def check_user_name_entering(user_name: str) -> dict:
         return {"bool": False, "msg": "The length cannot be empty string"}
 
     for char in user_name:
-        if (
-            char
-            not in """
-            aAbBcCdDeEfFgGhHiIgGkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890_
-            """
+        if char not in (
+            "aAbBcCdDeEfFgGhHiIgGkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890_"
         ):
             return {
                 "bool": False,
-                "msg": """
-                The login must contain letters, numbers and an underscore""",
+                "msg": (
+                    "The login must contain letters, numbers and an underscore"
+                ),
             }
     return {"bool": True, "msg": user_name}
