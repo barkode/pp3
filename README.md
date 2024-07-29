@@ -20,20 +20,21 @@ You can [visit our site here.](https://stodo-766c69891344.herokuapp.com/)
       - [First Time Visitor Goals](#first-time-visitor-goals)
       - [Returning Visitor Goals](#returning-visitor-goals)
   - [Design](#design)
-  - [Flowcharts](#flowcharts)
-- [Deployment](#deployment)
-  - [Github](#github)
-    - [Forking the GitHub Repository](#forking-the-github-repository)
-    - [Making a Local Clone](#making-a-local-clone)
-  - [Heroku](#heroku)
+  - [Flowchart](#flowchart)
 - [Features](#features)
   - [Existing Features](#existing-features)
   - [Future Implementations](#future-implementations)
 - [Technologies Used](#technologies-used)
   - [Languages Used](#languages-used)
   - [Frameworks, Libraries and Programs Used](#frameworks-libraries-and-programs-used)
-  - [Credits](#credits)
-    - [Code \& Content](#code--content)
+- [Deployment](#deployment)
+  - [Github](#github)
+    - [Forking the GitHub Repository](#forking-the-github-repository)
+    - [Making a Local Clone](#making-a-local-clone)
+  - [Heroku](#heroku)
+- [Testing](#testing)
+- [Credits](#credits)
+  - [Code \& Content](#code--content)
     - [Media](#media)
     - [Acknowledgment](#acknowledgment)
 
@@ -124,9 +125,48 @@ scheme was chosen:
 
 [Back to top](#contents)
 
-## Flowcharts
+## Flowchart
 
-- The flowcharts were created using [draw.io](https://app.diagrams.net/)
+- The flowchart was created using [draw.io](https://app.diagrams.net/)
+
+  ![flowchart](./assets/docs/flowchart.png)
+
+[Back to top](#contents)
+
+# Features
+
+## Existing Features
+
+## Future Implementations
+
+[Back to top](#contents)
+
+# Technologies Used
+
+## Languages Used
+
+This app was written in Python.
+
+## Frameworks, Libraries and Programs Used
+
+- VSCODE – To write the code
+- Github - To save and store files
+- Heroku - To deploy and run the live project
+- Draw.io - to produce the flowcharts
+- PEP8 - to validate the Python code, improving the readability and consistency
+
+The Python libraries used are:
+
+- gspread - an API for Google Sheets
+- google.oauth2.service_account - allows the program to access data held in
+  Google Sheets
+- time - allows dates and times to be manipulated, use the sleep function to
+  delay the page clearing and use for generate id.
+- rich - to display the text in different colours
+- maskpass - to display the inputted passwords as #
+- os - to clear the page on the live program
+- sys - used in the function to slowly print text to the screen
+- hashlib - to store the password, in Google Sheets, encrypted
 
 [Back to top](#contents)
 
@@ -184,44 +224,13 @@ This site is deployed using Heroku and following these steps:
 
 [Back to top](#contents)
 
-# Features
-
-## Existing Features
-
-## Future Implementations
+# Testing
 
 [Back to top](#contents)
 
-# Technologies Used
+# Credits
 
-## Languages Used
-
-This app was written in Python.
-
-## Frameworks, Libraries and Programs Used
-
-- VSCODE – To write the code
-- Github - To save and store files
-- Heroku - To deploy and run the live project
-- Draw.io - to produce the flowcharts
-- PEP8 - to validate the Python code, improving the readability and consistency
-
-The Python libraries used are:
-
-- gspread - an API for Google Sheets
-- google.oauth2.service_account - allows the program to access data held in
-  Google Sheets
-- time - allows dates and times to be manipulated, use the sleep function to
-  delay the page clearing and use for generate id.
-- rich - to display the text in different colours
-- maskpass - to display the inputted passwords as #
-- os - to clear the page on the live program
-- sys - used in the function to slowly print text to the screen
-- hashlib - to store the password, in Google Sheets, encrypted
-
-## Credits
-
-### Code & Content
+## Code & Content
 
 - [Stack overflow](https://www.stackoverflow.com/),
   [MDN Web Docs](https://developer.mozilla.org/en-US/),
