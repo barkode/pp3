@@ -23,6 +23,7 @@ You can [visit our site here.](https://stodo-766c69891344.herokuapp.com/)
   - [Flowchart](#flowchart)
 - [Features](#features)
   - [Existing Features](#existing-features)
+    - [Landing Page](#landing-page)
   - [Future Implementations](#future-implementations)
 - [Technologies Used](#technologies-used)
   - [Languages Used](#languages-used)
@@ -138,6 +139,29 @@ scheme was chosen:
 # Features
 
 ## Existing Features
+
+### Landing Page
+
+- The landing page is the page the user lands on when the app is first run
+- The logo and the paragraph below explain to the user what the app does
+- The user must enter N or Y to select whether they are a new or existing user
+- The user can enter N or Y in upper or lower case
+- If any other entry is entered, the user will see an error message and be
+  prompted to enter the information again.
+
+<details>
+
+<summary>Landing page user input</summary>
+
+![Landing page](./assets/docs/lp1.png)
+
+![Landing page input other letter](./assets/docs/lp2.png)
+
+![Landing page input number](./assets/docs/lp3.png)
+
+</details>
+
+[Back to top](#contents)
 
 ## Future Implementations
 
