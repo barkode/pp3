@@ -72,8 +72,8 @@ tasks.
 
 ### Client Goals
 
-- A simple program that users will want to use
-- An program that meets the user’s needs
+- A simple app that users will want to use
+- An app that meets the user’s needs
 
 ### Visitor Goals
 
