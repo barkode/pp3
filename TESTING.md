@@ -13,6 +13,21 @@
   - [Maunal Testing](#maunal-testing)
   - [Full Testing](#full-testing)
     - [Landing Page](#landing-page)
+    - [New User](#new-user)
+      - [Choose Name](#choose-name)
+    - [Existing User](#existing-user)
+      - [Enter Username](#enter-username)
+      - [Enter Password](#enter-password)
+    - [Menu of actions](#menu-of-actions)
+    - [Main Menu](#main-menu)
+    - [Add task](#add-task)
+    - [Edit task](#edit-task)
+    - [Delete task](#delete-task)
+    - [Quit](#quit)
+    - [App termination](#app-termination)
+  - [Bugs](#bugs)
+    - [Resolved Bugs](#resolved-bugs)
+    - [Unresolved Bugs](#unresolved-bugs)
 
 ## PEP8 Validator
 
@@ -105,8 +120,124 @@ There were no concerns in any of these browsers
 |     The letter n      |                              Asks user to choose a username                              |       n        |       Yes        |    Yes    |
 |     The letter Y      |                            Asks user to enter their password                             |       Y        |       Yes        |    Yes    |
 |     The letter y      |                            Asks user to enter their password                             |       y        |       Yes        |    Yes    |
-|   Any other letter    | Tells the user they didn't enter the correct value and asks them to choose either N or Y |       Z        |       Yes        |    Yes    |
-|   Any other number    | Tells the user they didn't enter the correct value and asks them to choose either N or Y |       1        |       Yes        |    Yes    |
-| Any special character | Tells the user they didn't enter the correct value and asks them to choose either N or Y |       !        |       Yes        |    Yes    |
+|   Any other letter    | Tells the user they didn't enter the correct value and asks them to choose either N or Y |       t        |       Yes        |    Yes    |
+|   Any other number    | Tells the user they didn't enter the correct value and asks them to choose either N or Y |       24       |       Yes        |    Yes    |
+| Any special character | Tells the user they didn't enter the correct value and asks them to choose either N or Y |       =        |       Yes        |    Yes    |
+
+[Back to top](#testing)
+
+### New User
+
+#### Choose Name
+
+|                **Test**                |                            **Expected Outcome**                             | **Test Keyed** | **As Expected?** | **Pass?** |
+| :------------------------------------: | :-------------------------------------------------------------------------: | :------------: | :--------------: | :-------: |
+|   Any string containing only letters   |              Takes the user to a new page to choose a username              |      Raul      |       Yes        |    Yes    |
+|             A blank space              | Tells the user the name can only contain letters and asks them to try again |      " "       |       Yes        |    Yes    |
+| A string containing special characters | Tells the user the name can only contain letters and asks them to try again |      den!      |       Yes        |    Yes    |
+|         A string with a space          |    Tells the user the name cannot contain blank spaces and to try again     |  sophie loren  |       Yes        |    Yes    |
+
+[Back to top](#testing)
+
+### Existing User
+
+#### Enter Username
+
+|                **Test**                 |              **Expected Outcome**              | **Test Keyed** | **As Expected?** | **Pass?** |
+| :-------------------------------------: | :--------------------------------------------: | :------------: | :--------------: | :-------: |
+|         A username that exists          |       Asks user to enter their password        |     test1      |       Yes        |    Yes    |
+| A username that doesn't currently exist | Error message - Uset or password isn't correct |     ellie      |       Yes        |    Yes    |
+
+#### Enter Password
+
+|                            **Test**                             |                       **Expected Outcome**                       | **Test Keyed** | **As Expected?** | **Pass?** |
+| :-------------------------------------------------------------: | :--------------------------------------------------------------: | :------------: | :--------------: | :-------: |
+|  After entering the login, the user enters the wrong password.  |            An error message is displayed to the user             |     qwerty     |       Yes        |    Yes    |
+| After entering the login, the user enters the correct password. | The user is logged in. The user is shown a table with his tasks. |   ldkuugjS7    |       Yes        |    Yes    |
+
+[Back to top](#testing)
+
+### Menu of actions
+
+### Main Menu
+
+|              **Test**              |                 **Expected Outcome**                 | **Test Keyed** | **As Expected?** | **Pass?** |
+| :--------------------------------: | :--------------------------------------------------: | :------------: | :--------------: | :-------: |
+|          Choose option A           |             Ask user to input task text              |       A        |       Yes        |    Yes    |
+|          Choose option E           |          Ask user to enter number of a tsk           |       E        |       Yes        |    Yes    |
+|          Choose option D           |          Ask user to enter number of a tsk           |       D        |       Yes        |    Yes    |
+|          Choose option Q           | Show app logo. Show good bye message with user login |       Q        |       Yes        |    Yes    |
+|           A blank space            |       Show error message. Return to main page        |      " "       |       Yes        |    Yes    |
+|              A number              |       Show error message. Return to main page        |       12       |       Yes        |    Yes    |
+| A different letter than A, E, D, Q |       Show error message. Return to main page        |       g        |       Yes        |    Yes    |
+|        A special character         |       Show error message. Return to main page        |       %        |       Yes        |    Yes    |
+
+[Back to top](#testing)
+
+### Add task
+
+|           **Test**           | **Expected Outcome** |  **Test Keyed**  | **As Expected?** | **Pass?** |
+| :--------------------------: | :------------------: | :--------------: | :--------------: | :-------: |
+| User input the text in field |    New task added    | This is new task |       Yes        |    Yes    |
+
+[Back to top](#testing)
+
+### Edit task
+
+|                        **Test**                         |                  **Expected Outcome**                   | **Test Keyed** | **As Expected?** | **Pass?** |
+| :-----------------------------------------------------: | :-----------------------------------------------------: | :------------: | :--------------: | :-------: |
+| The user entered a task number that is not in the list. |           Error message. Return to main page            |       99       |       Yes        |    Yes    |
+|               User enter a letter or word               |           Error message. Return to main page            |      say       |       Yes        |    Yes    |
+|              User enter the correct number              | Show the input field where user can write new task text |       3        |       Yes        |    Yes    |
+|             User enter text and press enter             |                  The task text changed                  |   new task 1   |       Yes        |    Yes    |
+
+[Back to top](#testing)
+
+### Delete task
+
+|                        **Test**                         |        **Expected Outcome**        | **Test Keyed** | **As Expected?** | **Pass?** |
+| :-----------------------------------------------------: | :--------------------------------: | :------------: | :--------------: | :-------: |
+| The user entered a task number that is not in the list. | Error message. Return to main page |       99       |       Yes        |    Yes    |
+|               User enter a letter or word               | Error message. Return to main page |      say       |       Yes        |    Yes    |
+|              User enter the correct number              |        The task was deleted        |       4        |       Yes        |    Yes    |
+
+[Back to top](#testing)
+
+### Quit
+
+|       **Test**       |                    **Expected Outcome**                     | **Test Keyed** | **As Expected?** | **Pass?** |
+| :------------------: | :---------------------------------------------------------: | :------------: | :--------------: | :-------: |
+| User choose option Q | Show logo. Show login bye message. The app ends immediately |                |       Yes        |    Yes    |
+
+[Back to top](#testing)
+
+### App termination
+
+|            **Test**             |                    **Expected Outcome**                     | **Test Keyed** | **As Expected?** | **Pass?** |
+| :-----------------------------: | :---------------------------------------------------------: | :------------: | :--------------: | :-------: |
+| Press ctrl+c on welcome screen  | Show logo. Show login bye message. The app ends immediately |                |       Yes        |    Yes    |
+|  Press ctrl+c on log in screen  | Show logo. Show login bye message. The app ends immediately |                |       Yes        |    Yes    |
+| Press ctrl+c on sign in screen  | Show logo. Show login bye message. The app ends immediately |                |       Yes        |    Yes    |
+| Press ctrl+c on add task screen | Show logo. Show login bye message. The app ends immediately |                |       Yes        |    Yes    |
+|   Press ctrl+c on edit screen   | Show logo. Show login bye message. The app ends immediately |                |       Yes        |    Yes    |
+|  Press ctrl+c on delete screen  | Show logo. Show login bye message. The app ends immediately |                |       Yes        |    Yes    |
+
+[Back to top](#testing)
+
+## Bugs
+
+### Resolved Bugs
+
+|                                      **Bug**                                       |                                            **Resolution**                                            |
+| :--------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
+| Correct termination of the program and display of a farewell message did not work. |                           The sys library and its exit(0) method were used                           |
+|   User login verification did not work correctly. Accepted a login with a space.   | It was found in the documentation that according to the pip8 standard, long periods should be moved. |
+
+[Back to top](#testing)
+
+### Unresolved Bugs
+
+- If you create a user with the name of a worksheet that already exists, an
+  error occurs. It is not possible to create works with the same name
 
 [Back to top](#testing)
