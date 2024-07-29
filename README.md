@@ -34,6 +34,8 @@ You can [visit our site here.](https://stodo-766c69891344.herokuapp.com/)
   - [Heroku](#heroku)
 - [Testing](#testing)
 - [Credits](#credits)
+  - [Code Used](#code-used)
+  - [Content](#content)
   - [Code \& Content](#code--content)
     - [Media](#media)
     - [Acknowledgment](#acknowledgment)
@@ -230,94 +232,51 @@ This site is deployed using Heroku and following these steps:
 
 # Credits
 
+## Code Used
+
+The lines from 8 to 19 in gsheets_api.py were taken from the Code Institute
+Essentials project:
+
+```python
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive",
+]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('stodo')
+```
+
+[Back to top](#contents)
+
+## Content
+
+All content was written by Kostiantyn Krysenko
+
+[Back to top](#contents)
+
 ## Code & Content
 
-- [Stack overflow](https://www.stackoverflow.com/),
-  [MDN Web Docs](https://developer.mozilla.org/en-US/),
-  [W3 Schools](https://www.w3schools.com/),
-  [LogRocket](https://blog.logrocket.com/)
-
-  Help in solving problems. Help in implementing best practices. Search for the
-  best practices. Good documentation.
-
-- [Figma](https://www.figma.com/design/fDlsHwelyuOVsfUmCzm3dA/%D0%A1%D1%83%D1%87%D0%B0%D1%81%D0%BD%D1%8F-%D0%BF%D0%B5%D0%BA%D0%B0%D1%80%D0%BD%D1%8F?node-id=0-1&t=VeNx8IUKIo2EOdRB-0)
-
-  Figma as a search platform for inspiration and as a graphic editor.
-
-- Love running project from [Code Institute](https://codeinstitute.net/ie/)
-
-  I was inspired by the Gallery page and some of the code for the site's gallery
-  was taken.
-
-- [UIVerse](https://uiverse.io/)
-
-  credits for hover effect over images and other effects for elements goes to
-
-- [LogRocket](https://blog.logrocket.com/responsive-image-gallery-css-flexbox/)
-
-  credits for gallery goes from
-
-- [Google Maps](https://www.google.ie/maps/)
-
-  Was used to show the location
-
-- [ZelL Liev](https://medium.com/free-code-camp/how-to-check-if-an-input-is-empty-with-css-1a83715f9f3e)
-
-  A piece of code to implement form validation using CSS and regular
-  expressions.
-
-- [freeformatter.com](https://www.freeformatter.com/css-minifier.html#before-output)
-
-  It was used to minimize css
-
-- [W3C Markup Validator](https://validator.w3.org/)
-
-  This service was used to validate HTML files
-
-- [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
-
-  This service was used to validate CSS files
-
-- [JavaScript Info](https://javascript.info/)
-
-  There is a lot of js documentation on this site
-
 - [Google](https://google.com)
-
-  Search engine to find information
-
-- [ChatGPT](https://chatgpt.com/)
-
-  As a good helper in finding information
+- [github](github.com)
+- [W3 Schools](https://www.w3schools.com/)
+- [geeksforgeeks](geeksforgeeks.org)
+- [stackoverflow](stackoverflow.com)
+- [discuss python](discuss.python.org)
+- [docs python](docs.python.org)
+- [youtube](youtube.com)
+- [gspread docs](docs.gspread.org)
+- [rich docs](https://rich.readthedocs.io/en/latest/index.html)
+- [pypi](pypi.org)
 
 [Back to top](#contents)
 
 ### Media
 
-- [Unsplash](https://unsplash.com/) and [Pexels](https://www.pexels.com/)
-
-  Images on the site are taken from these resources.
-
-- [app-logo](https://app.logo.com/)
-
-  the resource is used to generate an idea and automatically create a logo for
-  the site
-
-- [MDN Web Docs](https://developer.mozilla.org/en-US/)
-
-  Instructions on how to connect the favicon to the site have been taken.
-
-- [FlatIcon](https://www.flaticon.com/)
-
-  The icon for the site was found on this resource.
-
-- [Squoosh](https://squoosh.app/)
-
-  The service was used to optimize pictures
-
-- [FLATICON](https://www.flaticon.com/free-icon/numerology_9288700?term=dice&page=1&position=59&origin=search&related_id=9288700)
-
-  Site favicon
+There was no media used in the app
 
 [Back to top](#contents)
 
