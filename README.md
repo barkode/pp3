@@ -141,6 +141,16 @@ scheme was chosen:
 
 ## Future Implementations
 
+- If the user name exists in the system, give an opportunity to choose another
+  name.
+- Add a forgotten password function – possibly with password hints
+- Allow the user to select a category for their task
+- Allow adding their own category name
+- Allow editing their own category name
+- Add the status of the task and give the possibility to change this status
+- Add the ability to exchange messages in the system between users
+- Add user roles
+
 [Back to top](#contents)
 
 # Technologies Used
