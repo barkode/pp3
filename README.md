@@ -440,6 +440,8 @@ This site is deployed using Heroku and following these steps:
 
 # Testing
 
+Please refer to the [testing information](./TESTING.md) in the separate file.
+
 [Back to top](#contents)
 
 # Credits
