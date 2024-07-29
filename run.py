@@ -99,7 +99,10 @@ def main():
                     rprint(f"[red]{res['msg']}[/red]")
                 sleep(SLEEP_TIME)
             else:
-                rprint("[red]Please, enter correct letter[/red]")
+                rprint(
+                    "[red]Please, enter correct letter."
+                    "You need to enter A, E, D or Q[/red]"
+                )
                 sleep(SLEEP_TIME)
     except KeyboardInterrupt:
         clear()

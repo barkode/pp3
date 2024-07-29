@@ -82,11 +82,11 @@ def sign_in_screen():
     while True:
         clear()
         print_logo(LOGO)
-        rprint(("[yellow]Please register."
-                "To do this, come up with a login and"
+        rprint(("[yellow]Please register. "
+                "To do this, come up with a login and "
                 "enter it in the field below.[/yellow]"))
         rprint(("[yellow]The login can only contain"
-                "letters and an underscore[/yellow]"))
+                "letters, numbers and an underscore[/yellow]"))
         rprint("[yellow]The login cannot contain spaces[/yellow]")
         u_login = input("Login: ")
         res = check_user_name_entering(u_login)
