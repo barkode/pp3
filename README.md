@@ -25,6 +25,13 @@ You can [visit our site here.](https://stodo-766c69891344.herokuapp.com/)
   - [Existing Features](#existing-features)
     - [Landing Page](#landing-page)
     - [New User](#new-user)
+    - [Existing User](#existing-user)
+    - [Menu of actions](#menu-of-actions)
+    - [Add task](#add-task)
+    - [Edit task](#edit-task)
+    - [Delete task](#delete-task)
+    - [Quit](#quit)
+    - [App termination](#app-termination)
   - [Future Implementations](#future-implementations)
 - [Technologies Used](#technologies-used)
   - [Languages Used](#languages-used)
@@ -180,13 +187,165 @@ scheme was chosen:
 - The user will see an error message if the login does not consist of letters or
   underscores.
 
+![new user page 3](./assets/docs/new_user_page3.png)
+
+- After the user enters a login, he will be prompted for a password. There are
+  no restrictions on the length or characters entered when entering a password.
+  During registration, the user can see the password.
+
+![new user page 4](./assets/docs/new_user_page4.png)
+
+- After registration, the user gets to the page with his tasks.
+
+![new user page 5](./assets/docs/new_user_page5.png)
+
+- The username, password, and name are added to the user sheet in Google Sheets.
+  Password is encrypted before adding to prevent security breach
+
+![new user page 6](./assets/docs/new_user_page6.png)
+
+- A new sheet will be created for the user with the same name as the selected
+  user login.
+
+![new user page 7](./assets/docs/new_user_page7.png)
+![new user page 8](./assets/docs/new_user_page8.png)
+
+[Back to top](#contents)
+
+### Existing User
+
+- The user will be prompted to enter his login and password.
+- For added security, the password will be displayed as hashes
+
+![exist user page 1](./assets/docs/exist_user_page1.png)
+
+- If the password does not match the stored username, the server will display an
+  error message
+
+![exist user page 2](./assets/docs/exist_user_page2.png)
+
+- When the username and password are entered correctly, the screen will clear
+  and the user will receive a welcome message and see their task table. The
+  user's login will be shown in the greeting. A
+  [menu of actions](#menu-of-actions) will be shown below the table.
+
+![exist user page 3](./assets/docs/exist_user_page3.png)
+
+[Back to top](#contents)
+
+### Menu of actions
+
+- The menu gives the user four options;
+  - Add task
+  - Edit task
+  - Delete task
+  - Quit
+- The user must pick letter to choose an option. The letters to be entered are
+  highlighted in yellow.
+
+![menu page 1](./assets/docs/menu_page1.png)
+
+- If the user entered an incorrect letter, an error message will be displayed.
+
+![menu page 2](./assets/docs/menu_page2.png)
+
+[Back to top](#contents)
+
+### Add task
+
+- When pressing the letter A, the user will be prompted to add a new task.
+
+![add task page 1](./assets/docs/add_task_page1.png)
+
+- There are no restrictions on entered characters. The user can enter any
+  characters.
+- I can see, with the help of the library
+  [rich](https://rich.readthedocs.io/en/latest/index.html), the table changes
+  its width depending on the width of the content.
+
+![add task page 2](./assets/docs/add_task_page2.png)
+
+[Back to top](#contents)
+
+### Edit task
+
+- When pressing the letter E, the user will be prompted to enter the task number
+
+![edit task page 1](./assets/docs/edit_task_page1.png)
+
+- If the user entered an incorrect task number, an error will be issued.
+- After that, it will show the main screen with tasks and menus.
+
+![edit task page 2](./assets/docs/edit_task_page2.png)
+
+- If the user entered the correct task number, he will be prompted to enter a
+  new text.
+
+![edit task page 3](./assets/docs/edit_task_page3.png)
+
+- After the user enters a new task text and presses enter, the task text will be
+  changed
+
+![edit task page 4](./assets/docs/edit_task_page4.png)
+
+[Back to top](#contents)
+
+### Delete task
+
+- When pressing the letter D, the user will be prompted to enter task number.
+
+![delete task page 1](./assets/docs/del_page1.png)
+
+- If the user enters an incorrect number, an error will be displayed. But it
+  will be shown on the main screen.
+
+![delete task page 2](./assets/docs/del_page2.png)
+
+- If the user enters letters instead of numbers, he will be shown an error
+  message. But it will be shown on the main screen.
+
+![delete task page 3](./assets/docs/del_page3.png)
+
+- After the user has entered the correct number, the task will be deleted. The
+  user is shown a list of tasks without the deleted one
+
+![delete task page 4](./assets/docs/del_page4.png)
+
+[Back to top](#contents)
+
+### Quit
+
+- When pressing the letter Q, the app will be terminated. A page with the user's
+  logo and login will be displayed.
+
+![quit page 1](./assets/docs/quit_page1.png)
+
+[Back to top](#contents)
+
+### App termination
+
+User pressed ctrl + c on pc or command + c on mac.
+
+- When pressing the letter ctrl + c (command + c on mac), the app will be
+  terminated. A page with the user's logo and login will be displayed.
+
+![ctrl+c page 1](./assets/docs/ctrl_c_page1.png)
+
+- When pressing the letter ctrl + c (command + c on mac), the app will be
+  terminated. If the user is not authorized, instead of the login, he will see
+  Dear user
+
+![ctrl+c page 2](./assets/docs/ctrl_c_page2.png)
+
 [Back to top](#contents)
 
 ## Future Implementations
 
 - If the user name exists in the system, give an opportunity to choose another
   name.
+- Add confirmation of the password entered by the user during registration.
 - Add a forgotten password function – possibly with password hints
+- Two-time confirmation of the password during registration
 - Allow the user to select a category for their task
 - Allow adding their own category name
 - Allow editing their own category name
@@ -217,7 +376,7 @@ The Python libraries used are:
   Google Sheets
 - time - allows dates and times to be manipulated, use the sleep function to
   delay the page clearing and use for generate id.
-- rich - to display the text in different colours
+- rich - to display the text in different colors
 - maskpass - to display the inputted passwords as #
 - os - to clear the page on the live program
 - sys - used in the function to slowly print text to the screen
